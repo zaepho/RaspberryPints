@@ -4,6 +4,7 @@ require_once __DIR__.'/../models/beer.php';
 class BeerManager{
 
 	function Save($beer){
+		global $DBO;
 		$sql = "";
 		if($beer->get_id()){
 			$sql = 	"UPDATE beers " .
@@ -33,15 +34,16 @@ class BeerManager{
 		
 		//echo $sql; exit();
 		
-		mysql_query($sql);
+		$DBO->exec($sql);
 	}
 	
 	function GetAll(){
+		global $DBO;
 		$sql="SELECT * FROM beers ORDER BY name";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$beers = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach ($qry as $i ){
 			$beer = new Beer();
 			$beer->setFromArray($i);
 			$beers[$beer->get_id()] = $beer;		
@@ -51,23 +53,27 @@ class BeerManager{
 	}
 	
 	function GetAllActive(){
+		global $DBO;
 		$sql="SELECT * FROM beers WHERE active = 1 ORDER BY name";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$beers = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach ($qry as $i ){
 			$beer = new Beer();
 			$beer->setFromArray($i);
-			$beers[$beer->get_id()] = $beer;	
+			$beers[$beer->get_id()] = $beer;		
 		}
 		
 		return $beers;
 	}
 		
 	function GetById($id){
+		global $DBO;
 		$sql="SELECT * FROM beers WHERE id = $id";
-		$qry = mysql_query($sql);
-		
+		$qry = $DBO->query($sql);
+		$beer = $qry->fetchObject('Beer');
+		return $beer;
+		/*
 		if( $i = mysql_fetch_array($qry) ){		
 			$beer = new Beer();
 			$beer->setFromArray($i);
@@ -75,6 +81,7 @@ class BeerManager{
 		}
 
 		return null;
+		*/
 	}
 	
 	function Inactivate($id){

@@ -4,11 +4,12 @@ require_once __DIR__.'/../models/beerStyle.php';
 class BeerStyleManager{
 
 	function GetAll(){
+		global $DBO;
 		$sql="SELECT * FROM beerStyles ORDER BY name";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$beerStyles = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach($qry as $i) {
 			$beerStyle = new beerStyle();
 			$beerStyle->setFromArray($i);
 			$beerStyles[$beerStyle->get_id()] = $beerStyle;		
@@ -20,10 +21,11 @@ class BeerStyleManager{
 	
 		
 	function GetById($id){
+		global $DBO;
 		$sql="SELECT * FROM beerStyles WHERE id = $id";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
-		if( $i = mysql_fetch_array($qry) ){		
+		if( $i = $qry->fetch(PDO::FETCH_ASSOC) ){		
 			$beerStyle = new beerStyle();
 			$beerStyle->setFromArray($i);
 			return $beerStyle;
