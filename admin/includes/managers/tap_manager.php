@@ -5,13 +5,14 @@ require_once __DIR__.'/../models/tap.php';
 class TapManager{
 	
 	function Save($tap){
+		global $DBO;
 		$sql = "";
 		
 		$sql="UPDATE kegs k SET k.kegStatusCode = 'SERVING' WHERE id = " . $tap->get_kegId();
-		mysql_query($sql);
+		$DBO->query($sql);
 	
 		$sql="UPDATE taps SET active = 0, modifiedDate = NOW() WHERE active = 1 AND tapNumber = " . $tap->get_tapNumber();
-		mysql_query($sql);		
+		$DBO->query($sql);		
 		
 		if($tap->get_id()){
 			$sql = 	"UPDATE taps " .
@@ -35,18 +36,19 @@ class TapManager{
 		
 		//echo $sql; exit();
 		
-		mysql_query($sql);
+		$DBO->query($sql);
 	}
 	
 	function GetById($id){
+		global $DBO;
 		$id = (int) preg_replace('/\D/', '', $id);
 	
 		$sql="SELECT * FROM taps WHERE id = $id";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
-		if( $i = mysql_fetch_array($qry) ){
+		if( $qry ){
 			$tap = new Tap();
-			$tap->setFromArray($i);
+			$tap->setFromArray($qry);
 			return $tap;
 		}
 		
@@ -54,30 +56,34 @@ class TapManager{
 	}
 
 	function updateTapNumber($newTapNumber){
+		global $DBO;
 		$sql="UPDATE config SET configValue = $newTapNumber WHERE configName = '".ConfigNames::NumberOfTaps."'";
-		mysql_query($sql);
+		$DBO->query($sql);
 		
 		$sql="UPDATE taps SET active = 0, modifiedDate = NOW() WHERE active = 1 AND tapNumber > $newTapNumber";
-		mysql_query($sql);
+		$DBO->query($sql);
 	}
 
 	function getTapNumber(){
+		global $DBO;
 		$sql="SELECT configValue FROM config WHERE configName = '".ConfigNames::NumberOfTaps."'";
 
-		$qry = mysql_query($sql);
-		$config = mysql_fetch_array($qry);
+		$qry = $DBO->query($sql, PDO::FETCH_ASSOC);
+		$config = $qry->fetch();
+		# $config = $qry['configValue'];
 		
-		if( $config != false ){
+		if( $config ){
 			return $config['configValue'];
 		}
 	}
 
 	function getActiveTaps(){
+		global $DBO;
 		$sql="SELECT * FROM taps WHERE active = 1";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$taps = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach ($qry as $i){
 			$tap = new Tap();
 			$tap->setFromArray($i);
 			$taps[$tap->get_tapNumber()] = $tap;
@@ -87,10 +93,11 @@ class TapManager{
 	}
 	
 	function closeTap($id){
+		global $DBO;
 		$sql="UPDATE taps SET active = 0, modifiedDate = NOW() WHERE id = $id";
-		mysql_query($sql);
+		$DBO->query($sql);
 		
 		$sql="UPDATE kegs k, taps t SET k.kegStatusCode = 'NEEDS_CLEANING' WHERE t.kegId = k.id AND t.Id = $id";
-		mysql_query($sql);
+		$DBO->query($sql);
 	}
 }

@@ -4,40 +4,29 @@
 	
 	// Setup array for all the beers that will be contained in the list
 	$beers = array();
+	$sql =  "SELECT * FROM vwGetActiveTaps";
 	
-	// Connect to the database
-		
-		/*
-		$config = array();
-		$sql = "SELECT * FROM config";
-		$qry = mysql_query($sql);
-		while($c = mysql_fetch_array($qry)){
-			$config[$c['configName']] = $c['configValue'];
-		}
-		*/
-		$sql =  "SELECT * FROM vwGetActiveTaps";
-		
-		foreach ($DBO->query($sql) as $b) {
-			$beeritem = array(
-				"id" => $b['id'],
-				"beername" => $b['name'],
-				"style" => $b['style'],
-				"notes" => $b['notes'],
-				"og" => $b['ogAct'],
-				"fg" => $b['fgAct'],
-				"srm" => $b['srmAct'],
-				"ibu" => $b['ibuAct'],
-				"startAmount" => $b['startAmount'],
-				"amountPoured" => $b['amountPoured'],
-				"remainAmount" => $b['remainAmount'],
-				"tapNumber" => $b['tapNumber'],
-				"srmRgb" => $b['srmRgb']
-			);
-			$beers[$b['tapNumber']] = $beeritem;	
-		};
+	foreach ($DBO->query($sql) as $b) {
+		$beeritem = array(
+			"id" => $b['id'],
+			"beername" => $b['name'],
+			"style" => $b['style'],
+			"notes" => $b['notes'],
+			"og" => $b['ogAct'],
+			"fg" => $b['fgAct'],
+			"srm" => $b['srmAct'],
+			"ibu" => $b['ibuAct'],
+			"startAmount" => $b['startAmount'],
+			"amountPoured" => $b['amountPoured'],
+			"remainAmount" => $b['remainAmount'],
+			"tapNumber" => $b['tapNumber'],
+			"srmRgb" => $b['srmRgb']
+		);
+		$beers[$b['tapNumber']] = $beeritem;	
+	};
 
-		$tapManager = new TapManager();
-		$numberOfTaps = $tapManager->GetTapNumber();
+	$tapManager = new TapManager();
+	$numberOfTaps = $tapManager->GetTapNumber();
 
 
 ?>

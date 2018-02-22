@@ -1,15 +1,15 @@
 <?php
 
-require_once __DIR__.'/config.php';
-global $config;
+require_once __DIR__.'/dbconfig.php';
+global $dbconfig;
 try {
-    $dbname = "rpints";
-    if ($config['dbprefix'] <> '') {
-        $dbname = $config['dbprefix'] . "_rpints";
+    $dbname = "raspberrypints";
+    if ($dbconfig['dbprefix'] <> '') {
+        $dbname = $dbconfig['dbprefix'] . "_" . $dbname;
     };
-    $DBO = new PDO( "mysql:" . "host=" . $config['dbhost'] . ";" . "dbname=" . $dbname , $config['dbuser'], $config['dbpass']);
+    $DBO = new PDO( "mysql:" . "host=" . $dbconfig['dbhost'] . ";" . "dbname=" . $dbname , $dbconfig['dbuser'], $dbconfig['dbpass']);
 } catch ( Exception $e ) {
-    $log->fatal('Failed to connect to SQL Database '. $dbname . ' @ ' . $config['dbhost']);
+    $log->fatal('Failed to connect to SQL Database '. $dbname . ' @ ' . $dbconfig['dbhost']);
     #TODO: Present an error page
     exit();
 }
