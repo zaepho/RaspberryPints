@@ -1,32 +1,23 @@
 <?php
-	require_once __DIR__.'/includes/config_names.php';
-
-	require_once __DIR__.'/includes/config.php';
-
+	require_once __DIR__.'/includes/common.php';
 	require_once __DIR__.'/admin/includes/managers/tap_manager.php';
-	
-	//This can be used to choose between CSV or MYSQL DB
-	$db = true;
 	
 	// Setup array for all the beers that will be contained in the list
 	$beers = array();
 	
-	if($db){
-		// Connect to the database
-		db();
+	// Connect to the database
 		
-		
+		/*
 		$config = array();
 		$sql = "SELECT * FROM config";
 		$qry = mysql_query($sql);
 		while($c = mysql_fetch_array($qry)){
 			$config[$c['configName']] = $c['configValue'];
 		}
-		
+		*/
 		$sql =  "SELECT * FROM vwGetActiveTaps";
-		$qry = mysql_query($sql);
-		while($b = mysql_fetch_array($qry))
-		{
+		
+		foreach ($DBO->query($sql) as $b) {
 			$beeritem = array(
 				"id" => $b['id'],
 				"beername" => $b['name'],
@@ -43,11 +34,12 @@
 				"srmRgb" => $b['srmRgb']
 			);
 			$beers[$b['tapNumber']] = $beeritem;	
-		}
-		
+		};
+
 		$tapManager = new TapManager();
 		$numberOfTaps = $tapManager->GetTapNumber();
-	}
+
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
