@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $logConfig = array(
     'threshold' => 'ALL',
     'rootLogger' => array(
-        'appenders' => array('file', 'default'),
+        'appenders' => array('file'),
     ),
     'appenders' => array(
         'default' => array(
@@ -20,7 +20,7 @@ $logConfig = array(
             'params' => array(
                 'htmlLineBreaks' => 'true',
             ),
-            'threshold' => 'error'
+            // 'threshold' => 'error'
         ),
         'file' => array (
             'class' => 'LoggerAppenderDailyFile',

@@ -4,11 +4,12 @@ require_once __DIR__.'/../models/keg.php';
 class KegManager{
 
 	function GetAll(){
+		global $DBO;
 		$sql="SELECT * FROM kegs ORDER BY label";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$kegs = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach($qry as $i){
 			$keg = new Keg();
 			$keg->setFromArray($i);
 			$kegs[$keg->get_id()] = $keg;
@@ -18,11 +19,12 @@ class KegManager{
 	}
 	
 	function GetAllActive(){
+		global $DBO;
 		$sql="SELECT * FROM kegs WHERE active = 1 ORDER BY label";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$kegs = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach($qry as $i){
 			$keg = new Keg();
 			$keg->setFromArray($i);
 			$kegs[$keg->get_id()] = $keg;
@@ -32,6 +34,7 @@ class KegManager{
 	}
 	
 	function GetAllAvailable(){
+		global $DBO;
 		$sql="SELECT * FROM kegs WHERE active = 1
 			AND kegStatusCode != 'SERVING'
 			AND kegStatusCode != 'SANITIZED'
@@ -40,10 +43,10 @@ class KegManager{
 			AND kegStatusCode != 'NEEDS_REPAIRS'
 			AND kegStatusCode != 'FLOODED'
 		ORDER BY label";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$kegs = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach($qry as $i){
 			$keg = new Keg();
 			$keg->setFromArray($i);
 			$kegs[$keg->get_id()] = $keg;
@@ -53,10 +56,11 @@ class KegManager{
 	}
 			
 	function GetById($id){
+		global $DBO;
 		$sql="SELECT * FROM kegs WHERE id = $id";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
-		if( $i = mysql_fetch_array($qry) ){		
+		if( $i = $qry->fetch() ){		
 			$keg = new Keg();
 			$keg->setFromArray($i);
 			return $keg;
@@ -67,6 +71,7 @@ class KegManager{
 	
 	
 	function Save($keg){
+		global $DBO;
 		$sql = "";
 		if($keg->get_id()){
 			$sql = 	"UPDATE kegs " .
@@ -102,14 +107,15 @@ class KegManager{
 		
 		//echo $sql; exit();
 		
-		mysql_query($sql);
+		$DBO->exec($sql);
 	}
 	
 	function Inactivate($id){
+		global $DBO;
 		$sql = "SELECT * FROM taps WHERE kegId = $id AND active = 1";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
-		if( mysql_fetch_array($qry) ){		
+		if( $qry->fetch() ){		
 			$_SESSION['errorMessage'] = "Keg is associated with an active tap and could not be deleted.";
 			return;
 		}
@@ -117,8 +123,11 @@ class KegManager{
 		$sql="UPDATE kegs SET active = 0 WHERE id = $id";
 		//echo $sql; exit();
 		
-		$qry = mysql_query($sql);
-		
-		$_SESSION['successMessage'] = "Keg successfully deleted.";
+		$qry = $DBO->exec($sql);
+		if ($qry == 1) {
+			$_SESSION['successMessage'] = "Keg successfully deleted.";
+		} else {
+			$_SESSION['errorMessage'] = "Keg failed to delete";
+		}
 	}
 }

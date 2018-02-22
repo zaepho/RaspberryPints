@@ -5,6 +5,7 @@ class BeerManager{
 
 	function Save($beer){
 		global $DBO;
+		$log = Logger::getLogger('RPints');
 		$sql = "";
 		if($beer->get_id()){
 			$sql = 	"UPDATE beers " .
@@ -18,8 +19,8 @@ class BeerManager{
 						"ibuEst = '" . $beer->get_ibu() . "', " .
 						"modifiedDate = NOW() ".
 					"WHERE id = " . $beer->get_id();
-					
-		}else{		
+			$log->info("Updateing beer " . $beer->get_name() . " (" . $beer->get_id() . ")");
+		} else {		
 			$sql = 	"INSERT INTO beers(name, beerStyleId, notes, ogEst, fgEst, srmEst, ibuEst, createdDate, modifiedDate ) " .
 					"VALUES(" . 
 					"'" . encode($beer->get_name()) . "', " .
@@ -30,11 +31,13 @@ class BeerManager{
 					"'" . $beer->get_srm() . "', " . 
 					"'" . $beer->get_ibu() . "' " .
 					", NOW(), NOW())";
+			$log->info("Creating new beer: " . $beer->get_name());
 		}
 		
+		$log->info('Beer::Save() SQL: ' . $sql);
 		//echo $sql; exit();
 		
-		$DBO->exec($sql);
+		return $DBO->exec($sql);
 	}
 	
 	function GetAll(){
@@ -71,31 +74,28 @@ class BeerManager{
 		global $DBO;
 		$sql="SELECT * FROM beers WHERE id = $id";
 		$qry = $DBO->query($sql);
-		$beer = $qry->fetchObject('Beer');
-		return $beer;
-		/*
-		if( $i = mysql_fetch_array($qry) ){		
+		if( $i = $qry->fetch() ){		
 			$beer = new Beer();
 			$beer->setFromArray($i);
 			return $beer;
 		}
 
 		return null;
-		*/
 	}
 	
 	function Inactivate($id){
+		global $DBO;
 		$sql = "SELECT * FROM taps WHERE beerId = $id AND active = 1";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
-		if( mysql_fetch_array($qry) ){		
+		if( $qry->fetch() ){		
 			$_SESSION['errorMessage'] = "Beer is associated with an active tap and could not be deleted.";
 			return;
 		}
 	
 		$sql="UPDATE beers SET active = 0 WHERE id = $id";
 		//echo $sql; exit();
-		$qry = mysql_query($sql);
+		$qry = $DBO->exec($sql);
 		
 		$_SESSION['successMessage'] = "Beer successfully deleted.";
 	}

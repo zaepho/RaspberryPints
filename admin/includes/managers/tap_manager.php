@@ -48,7 +48,7 @@ class TapManager{
 		
 		if( $qry ){
 			$tap = new Tap();
-			$tap->setFromArray($qry);
+			$tap->setFromArray($qry->fetch(PDO::FETCH_ASSOC));
 			return $tap;
 		}
 		

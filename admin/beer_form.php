@@ -3,7 +3,7 @@ session_start();
 if(!isset( $_SESSION['myusername'] )){
 	header("location:index.php");
 }
-require_once __DIR__.'/includes/conn.php';
+require_once __DIR__.'/../includes/common.php';
 require_once __DIR__.'/../includes/config_names.php';
 require_once __DIR__.'/includes/html_helper.php';
 require_once __DIR__.'/includes/functions.php';
@@ -13,20 +13,39 @@ require_once __DIR__.'/includes/models/beer.php';
 require_once __DIR__.'/includes/managers/beer_manager.php';
 require_once __DIR__.'/includes/managers/beerStyle_manager.php';
 
+$log = Logger::getLogger('RPints');
 $htmlHelper = new HtmlHelper();
 $beerManager = new BeerManager();
 $beerStyleManager = new BeerStyleManager();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$log->info('Adding/Updating Beer based on POST');
 	$beer = new Beer();
 	$beer->setFromArray($_POST);
-	$beerManager->Save($beer);
-	redirect('beer_list.php');
+	$result = $beerManager->Save($beer);
+	if ($result == 1 ) {
+		$log->info('Adding/Updating Beer sucessfull');
+		redirect('beer_list.php');
+	} else {
+		$log->fatal('Failed to update/add beer ' . $beer->get_name() . ". Result: " . $result);
+		echo '<pre>';
+		print_r($_POST);
+		print_r($beer);
+		echo '</pre>';
+		exit;
+	}
+	
 }
 
 if( isset($_GET['id'])){
+	$log->debug('Getting beer id ' . $_GET['id'] . " for edit");
 	$beer = $beerManager->GetById($_GET['id']);
+	if ($beer != null) {
+		$log->debug('Got beer '. $beer->get_name() .'('. $beer->get_id()  . ") for edit");
+	} else {
+		$log->fatal('Failed to get beer id ' . $_GET['id'] . " for edit");
+	}
 }else{
 	$beer = new Beer();
 }
@@ -190,6 +209,10 @@ require __DIR__.'/scripts.php';
       DD_belatedPNG.fix('img, .notifycount, .selected');
     </script>
     <![endif]--> 
-
+<pre>
+<?php
+print_r($_POST);
+?>
+</pre>
 </body>
 </html>

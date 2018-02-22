@@ -4,11 +4,12 @@ require_once __DIR__.'/../models/kegStatus.php';
 class KegStatusManager{
 
 	function GetAll(){
+		global $DBO;
 		$sql="SELECT * FROM kegStatuses ORDER BY name";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
 		$kegStatuses = array();
-		while($i = mysql_fetch_array($qry)){
+		foreach($qry as $i) {
 			$kegStatus = new KegStatus();
 			$kegStatus->setFromArray($i);
 			$kegStatuses[$kegStatus->get_code()] = $kegStatus;		
@@ -18,10 +19,11 @@ class KegStatusManager{
 	}	
 		
 	function GetByCode($code){
+		global $DBO;
 		$sql="SELECT * FROM kegStatuses WHERE code = '$code'";
-		$qry = mysql_query($sql);
+		$qry = $DBO->query($sql);
 		
-		if( $i = mysql_fetch_array($qry) ){		
+		if( $i = $qry->fetch() ){		
 			$kegStatus = new KegStatus();
 			$kegStatus->setFromArray($i);
 			return $kegStatus;
