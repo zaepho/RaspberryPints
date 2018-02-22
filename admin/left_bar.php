@@ -2,13 +2,7 @@
 <div id="leftside">
 
 <!-- Start User Echo -->
-<div id="welcome"> &nbsp; Welcome, <br />
-	&nbsp;
-	<?php
-		$sql="SELECT `name` FROM `users` WHERE username='$_SESSION[myusername]'";
-		$result=mysql_query($sql);
-		echo mysql_result($result, 0, 'name');
-	?>
+<div id="welcome"> &nbsp; Welcome,&nbsp;<?php echo $_SESSION['UserInfo']['name'] ?>
 </div>
 
 <!-- End User Echo -->

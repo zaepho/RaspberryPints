@@ -1,10 +1,13 @@
 <?php
 session_start();
 if(!isset( $_SESSION['myusername'] )){
-header("location:index.php");
+	$log->warn('Invalid attempt to access ' . __FILE__);
+	header("location:index.php");
 }
 
-require 'includes/conn.php';
+require_once __DIR__ . '/../includes/common.php';
+
+# require 'includes/conn.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -72,5 +75,10 @@ include 'scripts.php';
       DD_belatedPNG.fix('img, .notifycount, .selected');
     </script>
     <![endif]--> 
+<pre>
+<?php
+// print_r($_SESSION);
+?>
+</pre>
 </body>
 </html>
