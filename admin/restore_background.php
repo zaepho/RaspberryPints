@@ -8,6 +8,7 @@ require_once __DIR__.'/../includes/common.php';
 $file = 'img/background.jpg';
 if (file_exists(__DIR__ . '/../' . $file)) {
 
+<<<<<<< HEAD
 } else {
     $log->fatal('Original background image does not exist!');
     echo 'Original background image does not exist!';
@@ -24,3 +25,12 @@ if ($result) {
 }
 
 ?>
+=======
+if (!copy($file, $newfile)) {
+	echo "failed to copy $file...\n";
+}
+else {
+echo "<script>location.href='personalize.php';</script>";
+} 
+?>
+>>>>>>> Version2

@@ -37,11 +37,9 @@ class KegManager{
 		global $DBO;
 		$sql="SELECT * FROM kegs WHERE active = 1
 			AND kegStatusCode != 'SERVING'
-			AND kegStatusCode != 'SANITIZED'
 			AND kegStatusCode != 'NEEDS_CLEANING'
 			AND kegStatusCode != 'NEEDS_PARTS'
 			AND kegStatusCode != 'NEEDS_REPAIRS'
-			AND kegStatusCode != 'FLOODED'
 		ORDER BY label";
 		$qry = $DBO->query($sql);
 		
