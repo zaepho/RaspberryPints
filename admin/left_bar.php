@@ -63,8 +63,8 @@
 		<a class="expanded heading">Help</a>
 		<ul class="navigation">
 			<li><a href="#" title="faq">F.A.Q. <small>(coming soon)</small></a></li>
-			<li><a href="report_bug.php" title="faq">Report a Bug</a></li>
-			<li><a href="feedback.php" title="faq">Request a Feature</a></li>
+			<li><a href="https://github.com/zaepho/RaspberryPints/issues" title="faq">Report a Bug</a></li>
+			<li><a href="https://github.com/zaepho/RaspberryPints/issues" title="faq">Request a Feature</a></li>
 		</ul>	
 	</li>
 	<li>
