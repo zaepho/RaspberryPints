@@ -40,7 +40,7 @@ if ($ok==0) {
         //Success
         //echo "Success";
         # Reload config values before continuing
-        require __DIR__ . '../includes/config.php';
+        require __DIR__ . '/../includes/config.php';
         echo "<script>location.href='personalize.php';</script>";
     } else {
         echo "Sorry, there was a problem setting the logo configuration."; 
