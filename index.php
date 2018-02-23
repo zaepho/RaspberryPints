@@ -46,9 +46,20 @@
 		<?php } ?>
 		
 		<link rel="shortcut icon" href="img/pint.ico">
+		<style>
+			body {
+				background: url(<?php echo $config['backgroundImgUrl'] ?>);
+				background-color: #000000;
+				background-size: cover;
+				background-repeat:no-repeat;
+				/*overflow: hidden;*/
+				font: 1.5em Gerorgia, arial, verdana, sans-serif;
+				margin:5px;
+			}
+		</style>
 	</head> 
 
-	<body>
+	<body >
     	<div class="bodywrapper">
         	<!-- Header with Brewery Logo and Project Name -->
             <div class="header clearfix">
@@ -60,7 +71,7 @@
 					<?php } ?>
                 </div>
                 <div class="HeaderCenter">
-                    <h1 id="HeaderTitle"><? echo $config[ConfigNames::HeaderText]; ?></h1>
+                    <h1 id="HeaderTitle"><?php echo $config[ConfigNames::HeaderText]; ?></h1>
                 </div>
                 <div class="HeaderRight">
 					<?php if($config[ConfigNames::UseHighResolution]) { ?>			

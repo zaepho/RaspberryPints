@@ -1,12 +1,12 @@
 <?php
 session_start();
 if(!isset( $_SESSION['myusername'] )){
-header("location:index.php");
+	header("location:index.php");
 }
 
-require 'includes/conn.php';
-require '../includes/config_names.php';
-require 'includes/configp.php';
+require_once __DIR__.'/../includes/common.php';
+require_once __DIR__.'/../includes/config_names.php';
+require_once __DIR__.'/../includes/config.php';
 
 ?> 
 
@@ -49,6 +49,8 @@ include 'header.php';
 		<h2>Show/Hide Columns</h2><br /> 
 		<form method="post" action="update_column.php">
 			<?php
+				$sql = 'select * from config where showOnPanel = 1';
+				$result = $DBO->query($sql);
 				foreach($result as $row) {
 				echo '<h3>' . $row['displayName'] . ":" . '</h3>' . 
 					'On<input type="radio" ' . ($row['configValue']?'checked':'') . ' name="' . str_replace(' ','',$row['id']) . '" value="1">' .
@@ -62,8 +64,8 @@ include 'header.php';
 
 		<?php
 			$sql="SELECT configValue FROM config WHERE configName ='".ConfigNames::HeaderText."'";
-			$result=mysql_query($sql);
-			$headerText=mysql_fetch_array($result);
+			$result=$DBO->query($sql);
+			$headerText = $result->fetch(PDO::FETCH_ASSOC);
 		?>
       <a name="header"></a> 
 		<h2>Header Text</h2>
@@ -78,7 +80,7 @@ include 'header.php';
 		<h2>TapList Logo</h2>
 		<p>This logo appears on the taplist.</p>
 			<b>Current image:</b><br /><br />
-				<img src="../img/logo.png" height="100" alt="Brewery Logo" style="border-style: solid; border-width: 2px; border-color: #d6264f;" />
+				<img src="<?php echo '../'.$config['logoUrl'] ?>" height="100" alt="Brewery Logo" style="border-style: solid; border-width: 2px; border-color: #d6264f;" />
 			<form enctype="multipart/form-data" action="update_logo.php" method="POST"><br />
 				<input name="uploaded" type="file" accept="image/gif, image/jpg, image/png"/>
 				<input type="submit" class="btn" value="Upload" />
@@ -88,7 +90,7 @@ include 'header.php';
 		<h2>Admin Logo</h2>
 		<p>This logo appears on the admin panel.</p>
 			<b>Current image:</b><br /><br />
-				<img src="img/logo.png" height="100" alt="Brewery Logo" style="border-style: solid; border-width: 2px; border-color: #d6264f;" />
+				<img src="<?php echo '../'.$config['adminLogoUrl'] ?>" height="100" alt="Brewery Logo" style="border-style: solid; border-width: 2px; border-color: #d6264f;" />
 			<form enctype="multipart/form-data" action="updateAdminLogo.php" method="POST"><br />
 				<input name="uploaded" type="file" accept="image/gif, image/jpg, image/png"/>
 				<input type="submit" class="btn" value="Upload" />
@@ -99,7 +101,7 @@ include 'header.php';
 		<h2>Background Image</h2>
 		<p>This background appears on the taplist.</p>
 			<b>Current image:</b><br /><br />
-				<img src="../img/background.jpg" width="200" alt="Background" style="border-style: solid; border-width: 2px; border-color: #d6264f;" />
+				<img src="<?php echo '../'.$config['backgroundImgUrl'] ?>" width="200" alt="Background" style="border-style: solid; border-width: 2px; border-color: #d6264f;" />
 			<form enctype="multipart/form-data" action="update_background.php" method="POST">
 				<input name="uploaded" type="file" accept="image/gif, image/jpg, image/png"/>
 				<input type="submit" class="btn" value="Upload" /><br /><br />
@@ -112,7 +114,6 @@ include 'header.php';
 </div>
 
 <!-- Start Footer -->
-
 <?php 
 include 'footer.php';
 ?>
@@ -138,5 +139,6 @@ include 'scripts.php';
 	DD_belatedPNG.fix('img, .notifycount, .selected');
 	</script>
 	<![endif]--> 
+
 </body>
 </html>

@@ -1,23 +1,21 @@
 <?php
 session_start();
 if(!isset( $_SESSION['myusername'] )){
-header("location:index.php");
+	header("location:index.php");
 }
-require 'includes/conn.php';
-require '../includes/config_names.php';
-require 'includes/configp.php';
+require_once __DIR__.'/../includes/common.php';
+require_once __DIR__.'/../includes/config_names.php';
 
-
-
-// Get values from form 
-$name=$_POST['id'];
-$config_Value=$_POST['configValue'];
-
-foreach($_POST as $k => $v){
+/*echo '<pre>';
+print_r($_POST);
+echo '</pre>';
+exit;
+*/
+foreach(array_keys($_POST) as $key){
 	// update data in mysql database
-	$stmt = $conn->prepare("UPDATE config SET configValue=:configValue WHERE id=:id");
-	$stmt->bindParam(':configValue', $v, PDO::PARAM_STR);
-	$stmt->bindParam(':id', $k, PDO::PARAM_STR);
+	$stmt = $DBO->prepare("UPDATE config SET configValue=:configValue WHERE id=:id");
+	$stmt->bindParam(':configValue', $_POST[$key], PDO::PARAM_INT);
+	$stmt->bindParam(':id', $key, PDO::PARAM_INT);
 	$result = $stmt->execute();
 }
 
