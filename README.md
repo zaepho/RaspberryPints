@@ -3,6 +3,11 @@ RaspberryPints (RPints) is a digital upgrade to the conventional chalkboard tapl
 # Installation
 * Install Composer (https://getcomposer.org/installer)
 * Download RPints source to desired web directory
+* From a shell:
+	* Navigate to the RPints directory and executre the command
+```
+php composer.phar update
+```
 * Import sql/schema.sql
 * Create includes/dbconfig.php:
 ```
