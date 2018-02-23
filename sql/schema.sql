@@ -181,13 +181,13 @@ FOREIGN KEY (`beerStyleId`) REFERENCES beerStyles(`id`) ON DELETE CASCADE
 --
 
 CREATE TABLE `config` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id` int(11) NOT NULL,
 	`configName` varchar(50) NOT NULL,
 	`configValue` longtext NOT NULL,
 	`displayName` varchar(65) NOT NULL,
-	`showOnPanel` tinyint(2) NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`showOnPanel` tinyint(2) NOT NULL DEFAULT 0,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `configName_UNIQUE` (`configName`)
@@ -197,19 +197,19 @@ CREATE TABLE `config` (
 -- Dumping data for table `config`
 --
 
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showTapNumCol', '1', 'Tap Column', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showSrmCol', '1', 'SRM Column', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showIbuCol', '1', 'IBU Column', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showAbvCol', '1', 'ABV Column', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showAbvImg', '1', 'ABV Image', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showKegCol', '1', 'Keg Column', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'useHighResolution', '0', '4k Monitor Support', '1', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'logoUrl', 'img/logo.png', 'Logo Url', '0', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'adminLogoUrl', 'admin/img/logo.png', 'Admin Logo Url', '0', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'headerText', 'Currently On Tap', 'Header Text', '0', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'numberOfTaps', '0', 'Number of Taps', '0', NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'version', '1.0.0.279', 'Version', '0', NOW(), NOW() );
-
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showTapNumCol', '1', 'Tap Column', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showSrmCol', '1', 'SRM Column', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showIbuCol', '1', 'IBU Column', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showAbvCol', '1', 'ABV Column', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showAbvImg', '1', 'ABV Image', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showKegCol', '1', 'Keg Column', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'useHighResolution', '0', '4k Monitor Support', 1, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'logoUrl', 'img/logo.png', 'Logo Url', 0, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'adminLogoUrl', 'admin/img/logo.png', 'Admin Logo Url', 0, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'headerText', 'Currently On Tap', 'Header Text', 0, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'numberOfTaps', '0', 'Number of Taps', 0, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'version', '2.0.2', 'Version', 0, NOW(), NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'backgroundImgUrl', 'img/background.jpg', 'Background Image', 0, NOW(), NOW() );
 
 -- --------------------------------------------------------
 
