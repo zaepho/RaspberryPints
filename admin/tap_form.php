@@ -25,11 +25,17 @@ $kegManager = new KegManager();
 $kegTypeManager = new KegTypeManager();
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	if( isset($_POST['saveTap']) ){
-		$tap = new Tap();
-		$tap->setFromArray($_POST);
-		$tapManager->Save($tap);
+if( array_key_exists('saveTap', $_POST) ){
+	$tap = new Tap();
+	$tap->setFromArray($_POST);
+	$tap = $tapManager->Save($tap);
+	if ($tap == null) {
+		echo '<pre>';
+		print_r($_POST);
+		echo 'SQL Error: ';
+		print_r($DBO->errorInfo());
+		echo '<pre>';
+		exit;
 	}
 	redirect('tap_list.php');
 }
@@ -51,15 +57,6 @@ if( isset($_GET['id'])){
 	$tap->set_tapNumber($tapNumber);
 	$tap->set_active(true);
 }
-
-// Code to set config values
-$config = array();
-		$sql = "SELECT * FROM config";
-		$qry = mysql_query($sql);
-		while($c = mysql_fetch_array($qry)){
-			$config[$c['configName']] = $c['configValue'];
-		}
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

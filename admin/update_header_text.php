@@ -3,14 +3,8 @@ session_start();
 if(!isset( $_SESSION['myusername'] )){
 	header("location:index.php");
 }
-<<<<<<< HEAD
 require_once __DIR__.'/../includes/common.php';
 require_once __DIR__.'/../includes/config_names.php';
-=======
-require 'includes/conn.php';
-require '../includes/config_names.php';
-require_once 'includes/functions.php';
->>>>>>> Version2
 
 // Get values from form 
 $header_text=encode($_POST['header_text']);

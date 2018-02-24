@@ -1,11 +1,10 @@
 <?php
 session_start();
+require_once __DIR__ . '/../includes/common.php';
 if(!isset( $_SESSION['myusername'] )){
 	$log->warn('Invalid attempt to access ' . __FILE__);
 	header("location:index.php");
 }
-
-require_once __DIR__ . '/../includes/common.php';
 
 # require 'includes/conn.php';
 ?>
@@ -69,7 +68,6 @@ include 'left_bar.php';
 include 'scripts.php';
 ?>
 	<!-- End Js -->
-<<<<<<< HEAD
     <!--[if IE 6]>
     <script type='text/javascript' src='scripts/png_fix.js'></script>
     <script type='text/javascript'>
@@ -81,13 +79,5 @@ include 'scripts.php';
 // print_r($_SESSION);
 ?>
 </pre>
-=======
-	<!--[if IE 6]>
-	<script type='text/javascript' src='scripts/png_fix.js'></script>
-	<script type='text/javascript'>
-	DD_belatedPNG.fix('img, .notifycount, .selected');
-	</script>
-	<![endif]--> 
->>>>>>> Version2
 </body>
 </html>

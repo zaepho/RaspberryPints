@@ -25,11 +25,7 @@ class BeerStyleManager{
 		$sql="SELECT * FROM beerStyles WHERE id = $id";
 		$qry = $DBO->query($sql);
 		
-<<<<<<< HEAD
 		if( $i = $qry->fetch(PDO::FETCH_ASSOC) ){		
-=======
-		if( $i = mysql_fetch_array($qry) ){
->>>>>>> Version2
 			$beerStyle = new beerStyle();
 			$beerStyle->setFromArray($i);
 			return $beerStyle;

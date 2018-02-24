@@ -203,19 +203,6 @@ require __DIR__.'/scripts.php';
 </script>
 
 	<!-- End Js -->
-<<<<<<< HEAD
-    <!--[if IE 6]>
-    <script type='text/javascript' src='scripts/png_fix.js'></script>
-    <script type='text/javascript'>
-      DD_belatedPNG.fix('img, .notifycount, .selected');
-    </script>
-    <![endif]--> 
-<pre>
-<?php
-print_r($_POST);
-?>
-</pre>
-=======
 	<!--[if IE 6]>
 	<script type='text/javascript' src='scripts/png_fix.js'></script>
 	<script type='text/javascript'>
@@ -223,6 +210,5 @@ print_r($_POST);
 	</script>
 	<![endif]--> 
 
->>>>>>> Version2
 </body>
 </html>

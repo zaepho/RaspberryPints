@@ -2,26 +2,12 @@
 <div id="leftside">
 
 <!-- Start User Echo -->
-<<<<<<< HEAD
 <div id="welcome"> &nbsp; Welcome,&nbsp;<?php echo $_SESSION['UserInfo']['name'] ?>
-=======
-<div id="welcome"> &nbsp; Logged in as: <br />
-	&nbsp;
-	<?php
-		$sql="SELECT `name` FROM `users` WHERE username='$_SESSION[myusername]'";
-		$result=mysql_query($sql);
-		echo mysql_result($result, 0, 'name');
-	?>
->>>>>>> Version2
 </div>
 
 <!-- End User Echo -->
 <div class="user">
-<<<<<<< HEAD
 	<a href="../index.php"><img src="<?php echo '../'.$config['adminLogoUrl'] ?>" width="120" height="120" class="hoverimg" alt="Avatar" /></a>
-=======
-	<a href="../index.php"><img src="img/logo.png<?php echo "?" . time(); ?>" width="120" height="120" class="hoverimg" alt="Brewery Logo" /></a>
->>>>>>> Version2
 </div>
 
 <!-- Start Navagation -->
@@ -51,7 +37,7 @@
 	<li>
 		<a class="expanded heading">Help!</a>
 		<ul class="navigation">
-<<<<<<< HEAD
+			<li><a href="phpinfo.php" title="phpinfo">PHPInfo</a></li>
 			<li><a href="#" title="gpio-pin-layout">GPIO Pin Layout<small>(coming v2.0.0)</small></a></li>
 			<li><a href="#" title="flow-calibration">Flow Meters <small>(coming v2.0.0)</small></a></li>
 			<li><a href="#" title="rfid-reader">RFID Readers <small>(coming v2.0.0)</small></a></li>
@@ -77,10 +63,6 @@
 			<li><a href="#" title="faq">F.A.Q. <small>(coming soon)</small></a></li>
 			<li><a href="https://github.com/zaepho/RaspberryPints/issues" title="faq">Report a Bug</a></li>
 			<li><a href="https://github.com/zaepho/RaspberryPints/issues" title="faq">Request a Feature</a></li>
-=======
-			<li><a href="http://raspberrypints.com/report-bug/" target="_blank">Report a Bug</a></li>
-			<li><a href="http://raspberrypints.com/request-feature/" target="_blank">Suggest a Feature</a></li>
->>>>>>> Version2
 		</ul>	
 	</li>
 	<li>

@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `beerStyles` (
 	`ibuMax` decimal(3) NOT NULL,
 	`srmMin` decimal(2) NOT NULL,
 	`srmMax` decimal(2) NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
@@ -206,38 +206,23 @@ CREATE TABLE `config` (
 -- Dumping data for table `config`
 --
 
-<<<<<<< HEAD
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showTapNumCol', '1', 'Tap Column', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showSrmCol', '1', 'SRM Column', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showIbuCol', '1', 'IBU Column', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showAbvCol', '1', 'ABV Column', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showAbvImg', '1', 'ABV Image', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'showKegCol', '1', 'Keg Column', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'useHighResolution', '0', '4k Monitor Support', 1, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'logoUrl', 'img/logo.png', 'Logo Url', 0, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'adminLogoUrl', 'admin/img/logo.png', 'Admin Logo Url', 0, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'headerText', 'Currently On Tap', 'Header Text', 0, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'numberOfTaps', '0', 'Number of Taps', 0, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'version', '2.0.2', 'Version', 0, NOW(), NOW() );
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES ( 'backgroundImgUrl', 'img/background.jpg', 'Background Image', 0, NOW(), NOW() );
-=======
-INSERT INTO `config` ( configName, configValue, displayName, showOnPanel, createdDate, modifiedDate ) VALUES
-( 'showTapNumCol', '1', 'Tap Column', '1', NOW(), NOW() ),
-( 'showSrmCol', '1', 'SRM Column', '1', NOW(), NOW() ),
-( 'showIbuCol', '1', 'IBU Column', '1', NOW(), NOW() ),
-( 'showAbvCol', '1', 'ABV Column', '1', NOW(), NOW() ),
-( 'showAbvImg', '1', 'ABV Images', '1', NOW(), NOW() ),
-( 'showKegCol', '0', 'Keg Column', '1', NOW(), NOW() ),
-( 'useHighResolution', '0', '4k Monitor Support', '1', NOW(), NOW() ),
-( 'logoUrl', 'img/logo.png', 'Logo Url', '0', NOW(), NOW() ),
-( 'adminLogoUrl', 'admin/img/logo.png', 'Admin Logo Url', '0', NOW(), NOW() ),
-( 'headerText', 'Currently On Tap', 'Header Text', '0', NOW(), NOW() ),
-( 'numberOfTaps', '0', 'Number of Taps', '0', NOW(), NOW() ),
-( 'version', '1.0.3.395', 'Version', '0', NOW(), NOW() ),
-( 'headerTextTruncLen' ,'20', 'Header Text Truncate Length', '0', NOW(), NOW() ),
-( 'useFlowMeter','0','Use Flow Monitoring', '1', NOW(),NOW() );
+INSERT INTO `config` ( configName, configValue, displayName, showOnPanel) VALUES
+	( 'showTapNumCol', '1', 'Tap Column', '1'),
+	( 'showSrmCol', '1', 'SRM Column', '1'),
+	( 'showIbuCol', '1', 'IBU Column', '1'),
+	( 'showAbvCol', '1', 'ABV Column', '1'),
+	( 'showAbvImg', '1', 'ABV Images', '1'),
+	( 'showKegCol', '0', 'Keg Column', '1'),
+	( 'useHighResolution', '0', '4k Monitor Support', '1'),
+	( 'logoUrl', 'img/logo.png', 'Logo Url', '0'),
+	( 'adminLogoUrl', 'admin/img/logo.png', 'Admin Logo Url', '0'),
+	( 'headerText', 'Currently On Tap', 'Header Text', '0'),
+	( 'numberOfTaps', '0', 'Number of Taps', '0'),
+	( 'version', '2.0.2-dev', 'Version', '0'),
+	( 'headerTextTruncLen' ,'20', 'Header Text Truncate Length', '0'),
+	( 'useFlowMeter','0','Use Flow Monitoring', '1'),
+	( 'backgroundImgUrl', 'img/background.jpg', 'Background Image');
 
->>>>>>> Version2
 
 -- --------------------------------------------------------
 
@@ -249,8 +234,8 @@ CREATE TABLE IF NOT EXISTS `kegTypes` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`displayName` text NOT NULL,
 	`maxAmount` decimal(6,2) NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
@@ -259,22 +244,22 @@ CREATE TABLE IF NOT EXISTS `kegTypes` (
 -- Dumping data for table `kegTypes`
 --
 
-INSERT INTO `kegTypes` ( displayName, maxAmount, createdDate, modifiedDate ) VALUES
-( 'Ball Lock (5 gal)', '5', NOW(), NOW() ),
-( 'Ball Lock (2.5 gal)', '2.5', NOW(), NOW() ),
-( 'Ball Lock (3 gal)', '3', NOW(), NOW() ),
-( 'Ball Lock (10 gal)', '10', NOW(), NOW() ),
-( 'Pin Lock (5 gal)', '5', NOW(), NOW() ),
-( 'Sanke (1/6 bbl)', '5.16', NOW(), NOW() ),
-( 'Sanke (1/4 bbl)', '7.75', NOW(), NOW() ),
-( 'Sanke (slim 1/4 bbl)', '7.75', NOW(), NOW() ),
-( 'Sanke (1/2 bbl)', '15.5', NOW(), NOW() ),
-( 'Sanke (Euro)', '13.2', NOW(), NOW() ),
-( 'Cask (pin)', '10.81', NOW(), NOW() ),
-( 'Cask (firkin)', '10.81', NOW(), NOW() ),
-( 'Cask (kilderkin)', '21.62', NOW(), NOW() ),
-( 'Cask (barrel)', '43.23', NOW(), NOW() ),
-( 'Cask (hogshead)', '64.85', NOW(), NOW() );
+INSERT INTO `kegTypes` ( displayName, maxAmount) VALUES
+	( 'Ball Lock (5 gal)', '5'),
+	( 'Ball Lock (2.5 gal)', '2.5'),
+	( 'Ball Lock (3 gal)', '3'),
+	( 'Ball Lock (10 gal)', '10'),
+	( 'Pin Lock (5 gal)', '5'),
+	( 'Sanke (1/6 bbl)', '5.16'),
+	( 'Sanke (1/4 bbl)', '7.75'),
+	( 'Sanke (slim 1/4 bbl)', '7.75'),
+	( 'Sanke (1/2 bbl)', '15.5'),
+	( 'Sanke (Euro)', '13.2'),
+	( 'Cask (pin)', '10.81'),
+	( 'Cask (firkin)', '10.81'),
+	( 'Cask (kilderkin)', '21.62'),
+	( 'Cask (barrel)', '43.23'),
+	( 'Cask (hogshead)', '64.85');
 
 -- --------------------------------------------------------
 
@@ -285,8 +270,8 @@ INSERT INTO `kegTypes` ( displayName, maxAmount, createdDate, modifiedDate ) VAL
 CREATE TABLE IF NOT EXISTS `kegStatuses` (
 	`code` varchar(20) NOT NULL,
 	`name` text NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	
 	PRIMARY KEY (`code`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
@@ -295,16 +280,16 @@ CREATE TABLE IF NOT EXISTS `kegStatuses` (
 -- Dumping data for table `kegStatuses`
 --
 
-INSERT INTO `kegStatuses` ( code, name, createdDate, modifiedDate ) VALUES
-( 'SERVING', 'Serving', NOW(), NOW() ),
-( 'PRIMARY', 'Primary', NOW(), NOW() ),
-( 'SECONDARY', 'Secondary', NOW(), NOW() ),
-( 'DRY_HOPPING', 'Dry Hopping', NOW(), NOW() ),
-( 'CONDITIONING', 'Conditioning', NOW(), NOW() ),
-( 'CLEAN', 'Clean', NOW(), NOW() ),
-( 'NEEDS_CLEANING', 'Needs Cleaning', NOW(), NOW() ),
-( 'NEEDS_PARTS', 'Needs Parts', NOW(), NOW() ),
-( 'NEEDS_REPAIRS', 'Needs Repairs', NOW(), NOW() );
+INSERT INTO `kegStatuses` ( code, name) VALUES
+	( 'SERVING', 'Serving'),
+	( 'PRIMARY', 'Primary'),
+	( 'SECONDARY', 'Secondary'),
+	( 'DRY_HOPPING', 'Dry Hopping'),
+	( 'CONDITIONING', 'Conditioning'),
+	( 'CLEAN', 'Clean'),
+	( 'NEEDS_CLEANING', 'Needs Cleaning'),
+	( 'NEEDS_PARTS', 'Needs Parts'),
+	( 'NEEDS_REPAIRS', 'Needs Repairs');
 
 -- --------------------------------------------------------
 
@@ -325,8 +310,8 @@ CREATE TABLE IF NOT EXISTS `kegs` (
 	`kegStatusCode` varchar(20) NOT NULL,
 	`weight` decimal(11,4) NOT NULL,
 	`active` tinyint(1) NOT NULL DEFAULT 1,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`kegStatusCode`) REFERENCES kegStatuses(`Code`) ON DELETE CASCADE,
@@ -353,8 +338,8 @@ CREATE TABLE IF NOT EXISTS `taps` (
 	`ibuAct` int(4) NOT NULL,
 	`startAmount` decimal(6,1) NOT NULL,
 	`currentAmount` decimal(6,1) NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`beerId`) REFERENCES beers(`id`) ON DELETE CASCADE,
@@ -370,12 +355,11 @@ CREATE TABLE IF NOT EXISTS `taps` (
 CREATE TABLE IF NOT EXISTS `pours` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`tapId` int(11) NOT NULL,
-	`pinId` int(11) DEFAULT NULL,
-  `amountPoured` float(6,3) NOT NULL,
-  `pulses` int(6) NOT NULL,
- 
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`pinId` int(11) NOT NULL DEFAULT 0,
+  	`amountPoured` float(6,3) NOT NULL,
+  	`pulses` int(6) NOT NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (tapId) REFERENCES taps(id) ON DELETE CASCADE
@@ -393,8 +377,8 @@ CREATE TABLE `users` (
 	`password` varchar(65) CHARACTER SET utf8 NOT NULL,
 	`name` varchar(65) CHARACTER SET utf8 NOT NULL,
 	`email` varchar(65) CHARACTER SET utf8 NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `username_UNIQUE` (`username`)
@@ -406,8 +390,8 @@ CREATE TABLE IF NOT EXISTS `srmRgb` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`srm` decimal(3,1) NOT NULL,
 	`rgb` varchar(12) NOT NULL,
-	`createdDate` TIMESTAMP NULL,
-	`modifiedDate` TIMESTAMP NULL,
+	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
 
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `srm_UNIQUE` (`srm`)

@@ -6,19 +6,27 @@ class TapManager{
 	
 	function Save($tap){
 		global $DBO;
+		$log = Logger::getCurrentLoggers()[0];
 		$sql = "";
-		
-<<<<<<< HEAD
-		$sql="UPDATE kegs k SET k.kegStatusCode = 'SERVING' WHERE id = " . $tap->get_kegId();
-		$DBO->query($sql);
-=======
+		$DBO->beginTransaction();
 		$sql="UPDATE kegs k SET k.kegStatusCode = 'SERVING', modifiedDate = NOW() WHERE id = " . $tap->get_kegId();
-		mysql_query($sql);
->>>>>>> Version2
-	
+		$log->debug('Updating Keg ' . $tap->get_kegId() . ' Status to SERVING');
+		$result = $DBO->exec($sql);
+		if ($result===false) {
+			$log->warn('Failed to update Keg ' . $tap->get_kegId());
+			$DBO->rollBack();
+		} else {
+			//success
+		}
 		$sql="UPDATE taps SET active = 0, modifiedDate = NOW() WHERE active = 1 AND tapNumber = " . $tap->get_tapNumber();
-		$DBO->query($sql);		
-		
+		$log->debug('Updating Tap ' . $tap->get_tapNumber() . ' to Inactive');
+		$result = $DBO->exec($sql);		
+		if ($result===false) {
+			$log->warn('Failed to update Tap ' . $tap->get_tapNumber());
+			$DBO->rollBack();
+		} else {
+			// Success
+		}
 		if($tap->get_id()){
 			$sql = 	"UPDATE taps " .
 					"SET " .
@@ -36,13 +44,22 @@ class TapManager{
 					"WHERE id = " . $tap->get_id();
 					
 		}else{
-			$sql = 	"INSERT INTO taps(beerId, kegId, tapNumber,pinId, ogAct, fgAct, srmAct, ibuAct, startAmount, currentAmount, active, createdDate, modifiedDate ) " .
-					"VALUES(" . $tap->get_beerId() . ", " . $tap->get_kegId() . ", " . $tap->get_tapNumber() . "," . $tap->get_pinId() . ", " . $tap->get_og() . ", " . $tap->get_fg() . ", " . $tap->get_srm() . ", " . $tap->get_ibu() . ", " . $tap->get_startAmount() . ", " . $tap->get_startAmount() . ", " . $tap->get_active	() . ", NOW(), NOW())";
+			$sql = 	"INSERT INTO taps(beerId, kegId, tapNumber,pinId, ogAct, fgAct, srmAct, ibuAct, startAmount, currentAmount, active) " .
+					"VALUES(" . $tap->get_beerId() . ", " . $tap->get_kegId() . ", " . $tap->get_tapNumber() . "," . $tap->get_pinId() . ", " . $tap->get_og() . ", " . $tap->get_fg() . ", " . $tap->get_srm() . ", " . $tap->get_ibu() . ", " . $tap->get_startAmount() . ", " . $tap->get_startAmount() . ", " . $tap->get_active	() . ")";
 		}		
 		
-		//echo $sql; exit();
-		
-		$DBO->query($sql);
+		$log->debug('Tapping Keg: ' . $sql);
+		$result = $DBO->exec($sql);		
+		if ($result===false) {
+			$log->warn('Failed to update Tap ' . $tap->get_tapNumber());
+			$DBO->rollBack();
+			return null;
+		} else {
+			
+			// Success
+		}
+		$DBO->commit();
+		return $tap;
 	}
 	
 	function GetById($id){
@@ -60,22 +77,31 @@ class TapManager{
 		
 		return null;
 	}
-
-	function updateTapNumber($newTapNumber){
-<<<<<<< HEAD
+	function GetByPinId($id){
 		global $DBO;
-		$sql="UPDATE config SET configValue = $newTapNumber WHERE configName = '".ConfigNames::NumberOfTaps."'";
-		$DBO->query($sql);
-=======
+		$id = (int) preg_replace('/\D/', '', $id);
+	
+		$sql="SELECT * FROM taps WHERE pinId = $id";
+		$qry = $DBO->query($sql);
+		
+		if( $qry ){
+			$tap = new Tap();
+			$tap->setFromArray($qry->fetch(PDO::FETCH_ASSOC));
+			return $tap;
+		}
+		
+		return null;
+	}
+	function updateTapNumber($newTapNumber){
+		global $DBO;
 		$sql="UPDATE config SET configValue = $newTapNumber, modifiedDate = NOW() WHERE configName = '".ConfigNames::NumberOfTaps."'";
-		mysql_query($sql);
-
+		$DBO->exec($sql);
+		
 		$sql="UPDATE kegs SET kegStatusCode = 'SANITIZED', modifiedDate = NOW() WHERE id IN (SELECT kegId FROM Taps WHERE tapNumber > $newTapNumber AND active = 1) ";
-		mysql_query($sql);
->>>>>>> Version2
+		$DBO->exec($sql);
 		
 		$sql="UPDATE taps SET active = 0, modifiedDate = NOW() WHERE active = 1 AND tapNumber > $newTapNumber";
-		$DBO->query($sql);
+		$DBO->exec($sql);
 	}
 
 	function getTapNumber(){

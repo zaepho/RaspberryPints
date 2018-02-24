@@ -1,10 +1,10 @@
 <?php
 session_start();
 if(!isset( $_SESSION['myusername'] )){
-    header("location:index.php");
+header("location:index.php");
 }
-require_once __DIR__ . '/../includes/common.php';
 
+require_once __DIR__.'/../includes/common.php';
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -30,32 +30,16 @@ include 'header.php';
 		<ul>	
 			<li><img src="img/icons/icon_breadcrumb.png" alt="Location" /></li>
 			<li><strong>Location:</strong></li>
-			<li class="current">My Account</li>
+			<li class="current">Contributors</li>
 		</ul>
 	</div>
 	<!-- Top Breadcrumb End --> 
 	
 	<!-- Right Side/Main Content Start -->
 	<div id="rightside">
-
-	
-		<div class="contentcontainer med left">
-			<div class="headings alt">
-				<h2>Account Info</h2>
-			</div>
-			<div class="contentbox">
-			<p style="padding:0px;margin:0px">
-			<font size="2" Color="Black" font-family="Impact">Name:</font>
-			<?php echo $_SESSION['UserInfo']['name']; ?><br />
-			<font size="2" Color="Black" font-family="Impact">Username:</font>
-			<?php echo $_SESSION['UserInfo']['username']; ?><br /><br />
-			<font size="2" Color="Black" font-family="Impact"> Email:</font>
-			<?php echo $_SESSION['UserInfo']['email']; ?><br />
-			<br />
-			<br />
-	</div>
-
-	<!-- Start Footer -->   
+        <?php phpinfo(); ?>
+    </div>
+<!-- Start Footer -->   
 <?php 
 include 'footer.php';
 ?>

@@ -8,14 +8,13 @@ require_once __DIR__.'/../includes/common.php';
 $file = 'img/background.jpg';
 if (file_exists(__DIR__ . '/../' . $file)) {
 
-<<<<<<< HEAD
 } else {
     $log->fatal('Original background image does not exist!');
     echo 'Original background image does not exist!';
     exit;
 }
 
-$qry = $DBO->prepare("update config set configValue=? where configName = 'backgroundImgUrl'");
+$qry = $DBO->prepare("update config set configValue=?, lastModified = NOW() where configName = 'backgroundImgUrl'");
 $result = $qry->execute(array($file));
 if ($result) {
     echo "<script>location.href='personalize.php';</script>";
@@ -25,12 +24,3 @@ if ($result) {
 }
 
 ?>
-=======
-if (!copy($file, $newfile)) {
-	echo "failed to copy $file...\n";
-}
-else {
-echo "<script>location.href='personalize.php';</script>";
-} 
-?>
->>>>>>> Version2
