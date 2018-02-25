@@ -54,6 +54,8 @@ __Known Bugs:__
 	- Firefox has difficulty rendering our SRM image masks correctly.
 		Due to a deficiency in the way Firefox handles z-values with images and is a known
 		issue within the MDN.
+	v2.0.2:
+		- Web Based installer is not currently functional
 
 
 __Version History:__
