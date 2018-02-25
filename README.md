@@ -1,7 +1,6 @@
 RaspberryPints (RPints) is a digital upgrade to the conventional chalkboard taplist, created just for the home brewer. Display your current beers on tap with a sleek, digital presentation. Manage your beers, recipes, kegs, and taps with our built-in tracking system.
 
-<<<<<<< HEAD
-# Installation
+__Installation__
 * Install Composer (https://getcomposer.org/installer)
 * Download RPints source to desired web directory
 * From a shell:
@@ -21,11 +20,7 @@ $dbconfig['dbpass'] = 'Password';
 ?>
 ```
 
-# Licensing
-=======
-
 __Licensing:__
->>>>>>> Version2
 
 	GNU GENERAL PUBLIC LICENSE
 	Version 3, 29 June 2007
@@ -62,6 +57,11 @@ __Known Bugs:__
 
 
 __Version History:__
+
+	v2.0.2:
+		- Migrate to PDO from PHP mysql functions
+		- Change pour tracking to leverage a web call instead of CLI
+		- Started work on potential SQL injection vectors
 
 	v1.0.3 (hotfix):
 		- Fixed broken links to (external) official website.
