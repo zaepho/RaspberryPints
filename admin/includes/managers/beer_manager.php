@@ -70,7 +70,7 @@ class BeerManager{
 		return $beers;
 	}
 		
-	function GetById($id){
+	static function GetById($id){
 		global $DBO;
 		$sql="SELECT * FROM beers WHERE id = $id";
 		$qry = $DBO->query($sql);

@@ -15,6 +15,7 @@ class Keg
 	private $_active;
 	private $_createdDate; 
 	private $_modifiedDate; 
+	private $_kegType;
 
 	public function __construct(){}
 
@@ -25,7 +26,14 @@ class Keg
 	public function set_label($_label){ $this->_label = $_label; }
 
 	public function get_kegTypeId(){ return $this->_kegTypeId; }
-	public function set_kegTypeId($_kegTypeId){ $this->_kegTypeId = $_kegTypeId; }
+	public function set_kegTypeId($_kegTypeId){ 
+		$this->_kegTypeId = $_kegTypeId;
+		$this->kegType = KegTypeManager::GetById($_kegTypeId);
+	}
+	
+	public function get_kegType() {
+		return $this->_kegType;
+	}
 	
 	public function get_make(){ return $this->_make; }
 	public function set_make($_make){ $this->_make = $_make; }

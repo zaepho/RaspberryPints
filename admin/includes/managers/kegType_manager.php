@@ -18,7 +18,7 @@ class KegTypeManager{
 		return $kegTypes;
 	}
 		
-	function GetById($id){
+	static function GetById($id){
 		global $DBO;
 		$sql="SELECT * FROM kegTypes WHERE id = $id";
 		$qry = $DBO->query($sql);

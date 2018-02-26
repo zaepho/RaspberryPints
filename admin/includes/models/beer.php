@@ -36,8 +36,8 @@ class Beer
 	public function set_fg($_fg){ $this->_fg = $_fg;}
 
 	public function get_srm(){ return $this->_srm; }
-	public function set_srm($_srm){ $this->_srm = $_srm; }
-
+	public function set_srm($_srm){$this->_srm = $_srm;}
+		
 	public function get_ibu(){ return $this->_ibu; }
 	public function set_ibu($_ibu){ $this->_ibu = $_ibu; }
 	
@@ -50,8 +50,28 @@ class Beer
 	public function get_modifiedDate(){ return $this->_modifiedDate; }
 	public function set_modifiedDate($_modifiedDate){ $this->_modifiedDate = $_modifiedDate; }
 	
-	public function setFromArray($postArr)  
-	{  
+	public function get_bitternessRatio(){ 
+		return $this->_ibu / (($this->_og - 1) * 1000); 
+	}
+
+	public function get_abv() {
+		$abv = ($this->_og - $this->_fg) * 131;
+		return $abv;
+	}
+
+	public function get_calFromAlc(){
+		return (1881.22 * ($this->_fg * ($this->_og - $this->_fg))) / (1.775 - $this->_og);
+	}
+	
+	public function get_calFromCarbs() {
+		return 3550.0 * $this->_fg * ((0.1808 * $this->_og) + (0.8192 * $this->_fg) - 1.0004);
+	}
+	
+	public function get_totalCal() {
+		return $this->get_calFromAlc() + $this->get_calFromCarbs();
+	}
+
+	public function setFromArray($postArr) {  
 		if( isset($postArr['id']) )
 			$this->set_id($postArr['id']);
 		else

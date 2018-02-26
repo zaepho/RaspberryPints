@@ -14,7 +14,9 @@ class Tap
 	private $_currentAmount; 
 	private $_active;
 	private $_createdDate; 
-	private $_modifiedDate; 
+	private $_modifiedDate;
+	private $_beer;
+	private $_keg;
 
 	public function __construct(){}
 
@@ -60,6 +62,37 @@ class Tap
 	public function get_modifiedDate(){ return $this->_modifiedDate; }
 	public function set_modifiedDate($_modifiedDate){ $this->_modifiedDate = $_modifiedDate; }
 	
+	public function get_beer() { return $this->_beer;}
+	public function get_keg() { return $this->_keg;}
+	
+	# Beer functions.  Really doesn't belong here.
+	public function get_bitternessRatio(){ 
+		return $this->_ibu / (($this->_og - 1) * 1000); 
+	}
+
+	public function get_abv() {
+		$abv = ($this->_og - $this->_fg) * 131;
+		return $abv;
+	}
+
+	public function get_calFromAlc(){
+		return (1881.22 * ($this->_fg * ($this->_og - $this->_fg))) / (1.775 - $this->_og);
+	}
+	
+	public function get_calFromCarbs() {
+		return 3550.0 * $this->_fg * ((0.1808 * $this->_og) + (0.8192 * $this->_fg) - 1.0004);
+	}
+	
+	public function get_totalCal() {
+		return $this->get_calFromAlc() + $this->get_calFromCarbs();
+	}
+
+	public function get_ozPoured() {
+		return ($this->_startAmount - $this->_currentAmount) * 128;
+	}
+	public function get_percentFull() {
+		return $this->_currentAmount / $this->_keg->get_kegType()->get_maxAmount() * 100;
+	}
 	public function setFromArray($postArr)  
 	{  	
 		if( isset($postArr['id']) )
@@ -67,16 +100,20 @@ class Tap
 		else
 			$this->set_id(null);
 			
-		if( isset($postArr['beerId']) )
+		if( isset($postArr['beerId']) ) {
 			$this->set_beerId($postArr['beerId']);
-		else
+			$this->_beer = BeerManager::GetById($this->_beerId);
+		} else {
 			$this->set_beerId(null);
-			
-		if( isset($postArr['kegId']) )
+		}
+
+		if( isset($postArr['kegId']) ) {
 			$this->set_kegId($postArr['kegId']);
-		else
+			$this->keg = KegManager::GetById($this->_kegId);
+		} else {
 			$this->set_kegId(null);
-			
+		}
+
 		if( isset($postArr['tapNumber']) )
 			$this->set_tapNumber($postArr['tapNumber']);
 		else

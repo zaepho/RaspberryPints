@@ -5,6 +5,11 @@
 
 		<!-- Set location of Cascading Style Sheet -->
 		<link rel="stylesheet" type="text/css" href="style.css">
+
+		{if $config[ConfigNames::UseHighResolution]}
+			<link rel="stylesheet" type="text/css" href="high-res.css">
+		{/if}
+
 		<link rel="shortcut icon" href="img/pint.ico">
 		<style>
 			body {
@@ -21,7 +26,3 @@
 
 	<body>
 		<div class="bodywrapper">
-		{include file="header.tpl"}
-		{include file="taplist.tpl"}
-	</body>
-</html>

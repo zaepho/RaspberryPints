@@ -6,7 +6,6 @@ if (!file_exists(__DIR__ . '/includes/dbconfig.php')) {
 
 require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/admin/includes/managers/tap_manager.php';
-
 // Setup array for all the beers that will be contained in the list
 $beers = array();
 $sql = "SELECT * FROM vwGetActiveTaps";

@@ -53,7 +53,7 @@ class KegManager{
 		return $kegs;
 	}
 			
-	function GetById($id){
+	static function GetById($id){
 		global $DBO;
 		$sql="SELECT * FROM kegs WHERE id = $id";
 		$qry = $DBO->query($sql);
