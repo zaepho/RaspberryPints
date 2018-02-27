@@ -1,5 +1,6 @@
 <html>
 	<head>
+		{debug}
 		<title>RaspberryPints</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -8,7 +9,7 @@
 		<link rel="shortcut icon" href="img/pint.ico">
 		<style>
 			body {
-				background: url(<?php echo $config['backgroundImgUrl'] ?>);
+				background: url({$config['backgroundImgUrl']});
 				background-color: #000000;
 				background-size: cover;
 				background-repeat:no-repeat;
@@ -18,10 +19,15 @@
 			}
 		</style>
 	</head>
-
 	<body>
 		<div class="bodywrapper">
-		{include file="header.tpl"}
-		{include file="taplist.tpl"}
+			{include file="file:frontend/header.tpl"}
+			{*
+			{foreach $taps as $tap}
+			{$tap->get_tapNumber()}
+			{/foreach}
+			*}
+			{include file="frontend/taplist.tpl"}
+		</div>
 	</body>
 </html>

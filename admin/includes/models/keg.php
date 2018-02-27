@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../managers/kegType_manager.php';
 class Keg
 {  
 	private $_id;  
@@ -28,7 +29,7 @@ class Keg
 	public function get_kegTypeId(){ return $this->_kegTypeId; }
 	public function set_kegTypeId($_kegTypeId){ 
 		$this->_kegTypeId = $_kegTypeId;
-		$this->kegType = KegTypeManager::GetById($_kegTypeId);
+		$this->_kegType = KegTypeManager::GetById($_kegTypeId);
 	}
 	
 	public function get_kegType() {
@@ -80,11 +81,13 @@ class Keg
 		else
 			$this->set_label(null);
 			
-		if( isset($postArr['kegTypeId']) )
+		if( isset($postArr['kegTypeId']) ) {
 			$this->set_kegTypeId($postArr['kegTypeId']);
-		else
+			$this->_kegType = KegTypeManager::GetById($postArr['kegTypeId']);
+		} else {
 			$this->set_kegTypeId(null);
-			
+		}
+
 		if( isset($postArr['make']) )
 			$this->set_make($postArr['make']);
 		else

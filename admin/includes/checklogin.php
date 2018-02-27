@@ -38,9 +38,9 @@ if($result['username'] == $myusername){
 } else {
     echo '<pre>';
     echo "Login Failed";
-    echo "User: $myusername";
-    echo "Pass: $mypassword";
-    print_r($result);
+    //echo "User: $myusername";
+    //echo "Pass: $mypassword";
+    //print_r($result);
     echo '</pre>';
     #echo "<script>location.href='../index2.php';</script>";
 }

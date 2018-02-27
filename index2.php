@@ -8,25 +8,27 @@ require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/admin/includes/managers/tap_manager.php';
 require_once __DIR__ . '/admin/includes/models/tap.php';
 // Include and setup Smarty
+//require_once __DIR__.'/vendor/Smarty/';
 
-require_once __DIR__.'/vendor/Smarty/';
+$Smarty = new Smarty();
+$Smarty->template_dir   = __DIR__ . '/templates/RPints-Veritcal/';
+$Smarty->debugging      = TRUE;
+# $Smarty->debug_tpl      = __DIR__ . '/templates/debug.tpl';
 
-$Smarty = new Smarty;
-$Smarty->assign($config);
-$smarty->template_dir = __DIR__ . 'templates/RPints-Veritcal/';
-$Smarty->debugging = true;
-
-// Setup array for all the beers that will be contained in the list
+$Smarty->assign('config', $config);
+// Setup array for all the taps that will be contained in the list
 $tapManager = new TapManager();
-$beers = $tapManager->getActiveTaps(); 
-$Smarty->assign($beers);
-$Smarty->assign($tapManager);
+$taps = $tapManager->getActiveTaps();
+ksort($taps);
+
+$Smarty->assign('taps', $taps);
+$Smarty->assign('tapManager', $tapManager);
 
 # Get SRM to SRMRGB conversion table
 $SRM2RGB = array();
-foreach ($DBO->query('select * from config', PDO::FETCH_ASSOC) as $setting) {
-    $SRM2RGB[$setting['srm']] = $setting['rgb'];
+foreach ($DBO->query('select * from srmRgb', PDO::FETCH_ASSOC) as $srm) {
+    $SRM2RGB[$srm['srm']] = $srm['rgb'];
 }
-$Smarty->assign($SRM2RGB);
-$smarty->display('frontend/layout.tpl')
+$Smarty->assign('SRM2RGB', $SRM2RGB);
+$Smarty->display('frontend/layout.tpl')
 ?>

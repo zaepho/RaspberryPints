@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/../functions.php';
+require_once __DIR__.'/../managers/beerStyle_manager.php';
 
 class Beer  
 {  
@@ -13,7 +14,7 @@ class Beer
 	private $_ibu;
 	private $_active;
 	private $_createdDate; 
-	private $_modifiedDate; 
+	private $_modifiedDate;
 
 	public function __construct(){}
 
@@ -71,6 +72,9 @@ class Beer
 		return $this->get_calFromAlc() + $this->get_calFromCarbs();
 	}
 
+	public function get_beerStyle() {
+		return BeerStyleManager::GetById($this->_beerStyleId);
+	}
 	public function setFromArray($postArr) {  
 		if( isset($postArr['id']) )
 			$this->set_id($postArr['id']);

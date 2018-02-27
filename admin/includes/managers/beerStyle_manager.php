@@ -20,7 +20,7 @@ class BeerStyleManager{
 
 
 
-	function GetById($id){
+	static function GetById($id){
 		global $DBO;
 		$sql="SELECT * FROM beerStyles WHERE id = $id";
 		$qry = $DBO->query($sql);

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__.'/../managers/beer_manager.php';
+require_once __DIR__.'/../managers/keg_manager.php';
 class Tap  
 {  
 	private $_id;  
@@ -24,10 +26,16 @@ class Tap
 	public function set_id($_id){ $this->_id = $_id; }
 
 	public function get_beerId(){ return $this->_beerId; }
-	public function set_beerId($_beerId){ $this->_beerId = $_beerId; }
+	public function set_beerId($_beerId){ 
+		$this->_beerId = $_beerId; 
+		$this->_beer = BeerManager::GetById($this->_beerId);
+	}
 
 	public function get_kegId(){ return $this->_kegId; }
-	public function set_kegId($_kegId){ $this->_kegId = $_kegId; }
+	public function set_kegId($_kegId){ 
+		$this->_kegId = $_kegId; 
+		$this->keg = KegManager::GetById($this->_kegId);
+	}
 
 	public function get_tapNumber(){ return $this->_tapNumber; }
 	public function set_tapNumber($_tapNumber){ $this->_tapNumber = $_tapNumber; }
@@ -52,6 +60,9 @@ class Tap
 	
 	public function get_currentAmount(){ return $this->_currentAmount; }
 	public function set_currentAmount($_currentAmount){ $this->_currentAmount = $_currentAmount; }
+	public function get_currentAmountOz() {
+		return $this->_currentAmount * 128;
+	}
 	
 	public function get_active(){ return $this->_active; }
 	public function set_active($_active){ $this->_active = $_active; }
@@ -91,7 +102,13 @@ class Tap
 		return ($this->_startAmount - $this->_currentAmount) * 128;
 	}
 	public function get_percentFull() {
-		return $this->_currentAmount / $this->_keg->get_kegType()->get_maxAmount() * 100;
+		$keg = null;
+		if ($this->_keg == null) {
+			$keg = KegManager::GetById($this->_kegId);
+		} else {
+			$keg = $this->_keg;
+		}
+		return $this->_currentAmount / $keg->get_kegType()->get_maxAmount() * 100;
 	}
 	public function setFromArray($postArr)  
 	{  	
