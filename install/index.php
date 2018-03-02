@@ -50,17 +50,17 @@
 	<?php
 		$upgrade=0;
 		$clear=0;
-		if (file_exists("../includes/config.php")) {
+		if (file_exists(__DIR__ . "/../includes/dbconfig.php")) {
 		echo 'We noticed that you already have installed RPints. Please select an option from the menu below';
 			//Check versions
-			require '../includes/config.php';
-			db();
+			require __DIR__ . "/../includes/common.php";
+			
 			$sql = 'SELECT id,configName,configValue FROM config where configname = "version"';
-			$qry = mysql_query($sql);	
-			$dbversion = mysql_result($qry,0,2);
+			$qry = $DBO->query($sql);	
+			$dbversion = $qry->fetch(PDO::FETCH_ASSOC);
 		
 			echo '<br><select name="selectaction">';
-			if ($dbversion != $rpintsversion) {
+			if ($dbversion != $RPintsVersion) {
 				echo '<option value="upgrade">Upgrade</option>';
 				$upgrade=1;
 			}
