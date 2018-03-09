@@ -38,16 +38,15 @@ class Callbacks extends Callbacks_Core
 		$config_file .= '// ------------------------------------------------------'."\n";
 		$config_file .= '// DO NOT ALTER THIS FILE UNLESS YOU HAVE A REASON TO'."\n";
 		$config_file .= '// ------------------------------------------------------'."\n";
-		$config_file .= '$config[\'base_url\'] = \'' . $_SESSION['params']['virtual_path'] . '\';'."\n";
-		$config_file .= '$config[\'license_key\'] = \'' . $_SESSION['params']['license_number'] . '\';'."\n\n";
 
-		$config_file .= '$db[\'product\'][\'hostname\'] = \'' . addslashes($_SESSION['params']['db_hostname']) . '\';'."\n";
-		$config_file .= '$db[\'product\'][\'username\'] = \'' . addslashes($_SESSION['params']['db_username']) . '\';'."\n";
-		$config_file .= '$db[\'product\'][\'password\'] = \'' . addslashes($_SESSION['params']['db_password']) . '\';'."\n";
-		$config_file .= '$db[\'product\'][\'database\'] = \'' . addslashes($_SESSION['params']['db_name']) . '\';'."\n";
+		$config_file .= '$dbconfig[\'dbhost\'] = \'' . addslashes($_SESSION['params']['db_hostname']) . '\';'."\n";
+		$config_file .= '$dbconfig[\'dbuser\'] = \'' . addslashes($_SESSION['params']['db_username']) . '\';'."\n";
+		$config_file .= '$dbconfig[\'dbuser\'] = \'' . addslashes($_SESSION['params']['db_password']) . '\';'."\n";
+		$config_file .= '$dbconfig[\'dbname\'] = \'' . addslashes($_SESSION['params']['db_name']) . '\';'."\n";
+		
 		$config_file .= '?>';
 
-		@file_put_contents(rtrim($_SESSION['params']['system_path'], '/').'/config.php', $config_file);
+		@file_put_contents(__DIR__.'/../../includes/dbconfig2.php', $config_file);
 
 		return true;
 	}
