@@ -1,3 +1,10 @@
+<?php
+
+
+
+?>
+
+
 <html>
 	<script>
 		//http://jsfiddle.net/rpP4K/
@@ -25,9 +32,6 @@
 		$("#txtConfirmAdminPassword").keyup(checkAdminPasswordMatch);
 		});
 	</script>
-
-
-
 	<head>
 	<title>RaspberryPints Installation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
