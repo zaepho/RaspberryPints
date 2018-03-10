@@ -3,14 +3,14 @@
 * Config files for V1.0.3.395
 ****************************************************************************/
 	
-	//Main config files - /includes/config.php
+	//Main config files - /includes/dbconfig.php
 	$mainconfigstring = "<?php \n";
-	$mainconfigstring .= "    function db() {\n";
-	$mainconfigstring .= '        $link = ';
-	$mainconfigstring .= "mysql_connect('" . $servername . "', '" . $dbuser . "', '" . $dbpass1 . "');\n";
-	$mainconfigstring .= "        mysql_select_db('raspberrypints');\n";
-	$mainconfigstring .= "	}\n";
-	$mainconfigstring .= '    $rpintsversion="1.0.3.395";' . "\n";
+	$mainconfigstring .= '	global $dbconfig;\n';
+	$mainconfigstring .= '	$dbconfig[\'dbhost\'] = "'. $servername .'";';
+	$mainconfigstring .= '	$dbconfig[\'dbname\'] = \'raspberrypints\';';
+    $mainconfigstring .= '	$dbconfig[\'dbtableprefix\'] = \'\';';
+    $mainconfigstring .= '	$dbconfig[\'dbuser\'] = \''. $dbuser .'\';';
+    $mainconfigstring .= '	$dbconfig[\'dbpass\'] = \''. $dbpass1 .'\';';
 	$mainconfigstring .= "?>";
 	
 	//Admin config file - /admin/conn.php

@@ -55,13 +55,14 @@
 		$upgrade=0;
 		$clear=0;
 		if (file_exists(__DIR__ . "/../includes/dbconfig.php")) {
-		echo 'We noticed that you already have installed RPints. Please select an option from the menu below';
+			echo 'We noticed that you already have installed RPints. Please select an option from the menu below';
 			//Check versions
-			require __DIR__ . "/../includes/common.php";
+			require_once __DIR__ . "/../includes/common.php";
 			
-			$sql = 'SELECT id,configName,configValue FROM config where configname = "version"';
-			$qry = $DBO->query($sql);	
-			$dbversion = $qry->fetch(PDO::FETCH_ASSOC);
+			$dbversion = $config['version'];
+			#$sql = 'SELECT id,configName,configValue FROM config where configname = "version"';
+			#$qry = $DBO->query($sql);	
+			#$dbversion = $qry->fetch(PDO::FETCH_ASSOC);
 		
 			echo '<br><select name="selectaction">';
 			if ($dbversion != $RPintsVersion) {
