@@ -50,7 +50,7 @@ $log->debug('Logging started');
 require_once __DIR__.'/dbconfig.php';
 require_once __DIR__.'/dbconnect.php';
 require_once __DIR__.'/config.php';
-
+require_once __DIR__.'/smarty.php';
 
 $log->debug("Loaded Commons for RPints " . $RPintsVersion);
 

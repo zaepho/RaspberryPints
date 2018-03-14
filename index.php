@@ -7,15 +7,7 @@ if (!file_exists(__DIR__ . '/includes/dbconfig.php')) {
 require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/admin/includes/managers/tap_manager.php';
 require_once __DIR__ . '/admin/includes/models/tap.php';
-// Include and setup Smarty
-//require_once __DIR__.'/vendor/Smarty/';
 
-$Smarty = new Smarty();
-$Smarty->template_dir   = __DIR__ . '/templates/'. $config['skin-FrontEnd'] .'/';
-$Smarty->debugging      = TRUE;
-# $Smarty->debug_tpl      = __DIR__ . '/templates/debug.tpl';
-
-$Smarty->assign('config', $config);
 // Setup array for all the taps that will be contained in the list
 $tapManager = new TapManager();
 $taps = $tapManager->getActiveTaps();
