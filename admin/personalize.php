@@ -19,5 +19,4 @@ $Smarty->assign('ConfigOnOff', array(
 $Smarty->assign('PanelConfig', $PanelConfig);
 $Smarty->assign('CurrentLocation', 'Configure_Settings');
 $Smarty->display('admin/layout.tpl');
-exit;
 ?>
