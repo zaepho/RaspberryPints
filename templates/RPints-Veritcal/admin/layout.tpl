@@ -4,10 +4,10 @@
         {debug}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>RaspberryPints Admin</title>
-        <link href="styles/layout.css" rel="stylesheet" type="text/css" />
-        <link href="styles/wysiwyg.css" rel="stylesheet" type="text/css" />
+        <link href="admin/styles/layout.css" rel="stylesheet" type="text/css" />
+        <link href="admin/styles/wysiwyg.css" rel="stylesheet" type="text/css" />
         <!-- Theme Start -->
-        <link href="styles.css" rel="stylesheet" type="text/css" />
+        <link href="admin/styles.css" rel="stylesheet" type="text/css" />
         <!-- Theme End -->
         <link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
     </head>
@@ -16,9 +16,9 @@
         <!-- Top Breadcrumb Start -->
         <div id="breadcrumb">
             <ul>	
-                <li><img src="img/icons/icon_breadcrumb.png" alt="Location" /></li>
+                <li><img src="admin/img/icons/icon_breadcrumb.png" alt="Location" /></li>
                 <li><strong>Location:</strong></li>
-                <li class="current">{$CurrentLocation}</li>
+                <li class="current">{$Page}</li>
             </ul>
         </div>
 
@@ -26,7 +26,7 @@
         
         <div id="rightside">
             <div class="contentcontainer lg left">
-                {include file="file:admin/$CurrentLocation.tpl"}
+                {include file="file:admin/$Page.tpl"}
             </div>
             <div id="footer">
                 {include file="file:admin/footer.tpl"}

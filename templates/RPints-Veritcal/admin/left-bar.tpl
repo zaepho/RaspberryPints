@@ -6,14 +6,14 @@
 
 <!-- End User Echo -->
 <div class="user">
-	<a href="../index.php"><img src="../{$config['adminLogoUrl']}" width="120" height="120" class="hoverimg" alt="Avatar" /></a>
+	<a href="../index.php"><img src="{$config['adminLogoUrl']}" width="120" height="120" class="hoverimg" alt="Avatar" /></a>
 </div>
 
 <!-- Start Navagation -->
 <ul id="nav">
 	<li>
 		<ul class="navigation">
-			<li class="heading selected">Welcome</li>
+			<li class="heading{if $Page=='Home'} selected{/if}"><a href="admin.php">Welcome</a></li>
 		</ul>
 	<li>
 	<li>
@@ -25,12 +25,12 @@
 		</ul>
 	</li>
 		<li>
-		<a class="expanded heading">Personalization</a>
+		<a class="expanded heading{if $Page=='Configure_Settings'} selected{/if}">Personalization</a>
 		<ul class="navigation">
-			<li><a href="personalize.php#columns">Show/Hide Columns</a></li>
-			<li><a href="personalize.php#header">Headers</a></li>
-			<li><a href="personalize.php#logo">Brewery Logo</a></li>
-			<li><a href="personalize.php#background">Background Image</a></li>
+			<li><a href="admin.php?action=personalize#columns">Show/Hide Columns</a></li>
+			<li><a href="admin.php?action=personalize#header">Headers</a></li>
+			<li><a href="admin.php?action=personalize#logo">Brewery Logo</a></li>
+			<li><a href="admin.php?action=personalize#background">Background Image</a></li>
 		</ul>
 	</li>
 	<li>

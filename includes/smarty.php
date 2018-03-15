@@ -13,4 +13,5 @@ $Smarty->assign('config', $config);
 $Smarty->assign('SESSION', $_SESSION);
 
 $Smarty->assign('_REQUEST', $_REQUEST);
+$Smarty->assign('_POST', $_POST);
 ?>

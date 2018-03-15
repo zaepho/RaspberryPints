@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (!file_exists(__DIR__ . '/includes/dbconfig.php')) {
     header('Location: install/index.php', true, 303);
     die();
@@ -7,6 +8,8 @@ if (!file_exists(__DIR__ . '/includes/dbconfig.php')) {
 require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/admin/includes/managers/tap_manager.php';
 require_once __DIR__ . '/admin/includes/models/tap.php';
+
+$Smarty->Assign('Page', 'taplist');
 
 // Setup array for all the taps that will be contained in the list
 $tapManager = new TapManager();

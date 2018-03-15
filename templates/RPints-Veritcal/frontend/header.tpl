@@ -1,7 +1,7 @@
 <!-- Header with Brewery Logo and Project Name -->
 <div class="header clearfix">
     <div class="HeaderLeft">
-        <a href="admin/admin.php"><img src="{$config[ConfigNames::LogoUrl]}" height="100" alt=""></a>
+        <a href="admin.php"><img src="{$config[ConfigNames::LogoUrl]}" height="100" alt=""></a>
     </div>
     <div class="HeaderCenter">
         <h1 id="HeaderTitle">{$config[ConfigNames::HeaderText]}</h1>
