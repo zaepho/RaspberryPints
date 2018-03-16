@@ -6,7 +6,7 @@
 
 <!-- End User Echo -->
 <div class="user">
-	<a href="../index.php"><img src="{$config['adminLogoUrl']}" width="120" height="120" class="hoverimg" alt="Avatar" /></a>
+	<a href="index.php"><img src="{$config['adminLogoUrl']}" width="120" height="120" class="hoverimg" alt="Avatar" /></a>
 </div>
 
 <!-- Start Navagation -->
