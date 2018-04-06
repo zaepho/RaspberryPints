@@ -11,3 +11,4 @@ assets/**
 includes/config_local.php
 logs/**
 includes/dbconfig.php
+includes/dbconfig*

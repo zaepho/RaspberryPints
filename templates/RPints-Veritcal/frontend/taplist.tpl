@@ -53,7 +53,7 @@
                     <p>{$beer->get_notes()}</p>
                 </td>
                 {if $config[ConfigNames::ShowAbvCol]}
-                    <td class="abv">{$beer->get_totalCal()} kCal<hr>{$beer->get_abv()}</td>
+                    <td class="abv">{$beer->get_totalCal()|string_format:"%.2f"} kCal<hr>{$beer->get_abv()|string_format:"%.1f"}% ABV</td>
                 {/if}
                 {if $config[ConfigNames::ShowKegCol]}
                     <td class="keg">

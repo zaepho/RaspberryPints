@@ -1,5 +1,5 @@
 <?php
-$RPintsVersion = '2.0.2dev';
+$RPintsVersion = '2.0.3dev';
 require __DIR__ . '/../vendor/autoload.php';
 # require_once __DIR__ . '/../vendor/apache/log4php/src/main/php/Logger.php';
 
@@ -50,7 +50,7 @@ $log->debug('Logging started');
 require_once __DIR__.'/dbconfig.php';
 require_once __DIR__.'/dbconnect.php';
 require_once __DIR__.'/config.php';
-
+require_once __DIR__.'/smarty.php';
 
 $log->debug("Loaded Commons for RPints " . $RPintsVersion);
 

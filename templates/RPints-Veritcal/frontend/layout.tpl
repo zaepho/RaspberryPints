@@ -27,7 +27,7 @@
 			{$tap->get_tapNumber()}
 			{/foreach}
 			*}
-			{include file="frontend/taplist.tpl"}
+			{include file="frontend/$Page.tpl"}
 		</div>
 	</body>
 </html>
