@@ -4,21 +4,11 @@ __Installation__
 * Install Composer (https://getcomposer.org/installer)
 * Download RPints source to desired web directory
 * From a shell:
-	* Navigate to the RPints directory and executre the command
+	* Navigate to the RPints directory and execute the command
 ```
 php composer.phar update
 ```
-* Import sql/schema.sql
-* Create includes/dbconfig.php:
-```
-<?php
-global $dbconfig;
-$dbconfig['dbhost'] = 'localhost';
-$dbconfig['dbprefix'] = '';
-$dbconfig['dbuser'] = 'Username';
-$dbconfig['dbpass'] = 'Password';
-?>
-```
+* Run the setup wizard located at http://servername/RPintsPath/install/
 
 __Licensing:__
 
@@ -54,6 +44,9 @@ __Known Bugs:__
 	- Firefox has difficulty rendering our SRM image masks correctly.
 		Due to a deficiency in the way Firefox handles z-values with images and is a known
 		issue within the MDN.
+	v2.0.2:
+		- Web Based installed is not fully tested.
+		  Workaround: Create SQL Database, Import SQL Schema, Create Configuration File
 	v2.0.2:
 		- Web Based installer is not currently functional
 
