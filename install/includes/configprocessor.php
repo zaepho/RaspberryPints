@@ -52,8 +52,9 @@ $con=mysqli_connect($servername,"root",$rootpass);
 
 if (mysqli_connect_errno()) {
 	$validerror .= "<br><strong>Cannot connect the the database using the supplied information.</strong>";
+} else {
+	echo "DB Connect Success!<br>";
 }
-echo "Success!<br>";
 flush();
 
 //Validate that the config directories are writable
