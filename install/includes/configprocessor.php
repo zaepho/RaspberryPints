@@ -53,6 +53,10 @@ $con=mysqli_connect($servername,"root",$rootpass);
 if (!$con) {
 	$mySQLErrorNo = mysqli_connect_errno();
 	$validerror .= "<br><strong>Cannot connect the the database using the supplied information. MySQL Error Number: ". $mySQLErrorNo ."</strong>";
+	echo "FAILED!</br>";
+	echo "User: root</br>";
+	echo "Server: ".$servername."</br>";
+	echo "Pass: ".$rootpass."</br>";
 } else {
 	echo "DB Connect Success!<br>";
 }
