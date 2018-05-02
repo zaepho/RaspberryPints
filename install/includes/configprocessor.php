@@ -50,8 +50,9 @@ flush();
 
 $con=mysqli_connect($servername,"root",$rootpass);
 
-if (mysqli_connect_errno()) {
-	$validerror .= "<br><strong>Cannot connect the the database using the supplied information.</strong>";
+if (!$con) {
+	$mySQLErrorNo = mysqli_connect_errno();
+	$validerror .= "<br><strong>Cannot connect the the database using the supplied information. MySQL Error Number: ". $mySQLErrorNo ."</strong>";
 } else {
 	echo "DB Connect Success!<br>";
 }
