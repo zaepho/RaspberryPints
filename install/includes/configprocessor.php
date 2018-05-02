@@ -57,6 +57,9 @@ if (!$con) {
 	echo "User: root</br>";
 	echo "Server: ".$servername."</br>";
 	echo "Pass: ".$rootpass."</br>";
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 } else {
 	echo "DB Connect Success!<br>";
 }
