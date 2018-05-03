@@ -221,7 +221,7 @@ INSERT INTO `config` ( configName, configValue, displayName, showOnPanel) VALUES
 	( 'version', '2.0.2-dev', 'Version', '0'),
 	( 'headerTextTruncLen' ,'20', 'Header Text Truncate Length', '0'),
 	( 'useFlowMeter','0','Use Flow Monitoring', '1'),
-	( 'backgroundImgUrl', 'img/background.jpg', 'Background Image', '0');
+	( 'backgroundImgUrl', 'img/background.jpg', 'Background Image', '0'),
 	( 'skin-FrontEnd', 'RPints-Veritcal', 'Tap Listing Skin', '0');
 
 
