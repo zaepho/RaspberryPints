@@ -184,16 +184,24 @@ if ($action == 'install') {
 
 
 	$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
+	$itBroke = false;
 	foreach ($sql_query as $key=>$sql) {
 		if (mysqli_query($con,$sql) ) {
 			echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
 			echo 'SQL: ' . $sql . '</br>';
+			$itBroke = true;
 		} else {
 			echo '<span style="color:darkgreen;">Query ' . $key . '/'. count($sql_query) .' succeeded</span></br>';
 		};
 	}
 	mysqli_close($con);
-	echo "Success!<br>";
+	if ($itBroke) {
+		echo "DB Creation Failed!";
+		die("DB Creation Failed!");
+	} else {
+		echo "Success!<br>";
+	}
+	
 	flush();
 
 	//-----------------Add the admin user to the Users DB----------
