@@ -4,8 +4,7 @@ RaspberryPints (RPints) is a digital upgrade to the conventional chalkboard tapl
 
 ## Installation
 
-For Installation on a fresh install of Rasbian Stretch on your RasberryPi see:
-<https://github.com/zaepho/RaspberryPints/wiki/Fresh-RaspberryPi-Stretch-Installation>
+For Installation on a fresh install of Rasbian Stretch on your RasberryPi see the [Fresh RaspberryPi Stretch Installation](https://github.com/zaepho/RaspberryPints/wiki/Fresh-RaspberryPi-Stretch-Installation) page on the Wiki.
 
 ## Licensing
 
@@ -30,8 +29,7 @@ Full license text available in 'LICENSE.md'.
 Questions? Comments? Want to Contribute?
 <http://www.homebrewtalk.com/f51/initial-release-raspberrypints-digital-taplist-solution-456809/>
 
-Inspired by Kegerface:
-<http://github.com/kegerface/kegerface>
+Inspired by [Kegerface](http://github.com/kegerface/kegerface)
 
 ## Known Bugs
 
