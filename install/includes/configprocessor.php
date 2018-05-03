@@ -184,21 +184,20 @@ if ($action == 'install') {
 
 
 	$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
-
-	$i=1;
-	foreach ($sql_query as $sql) {
-		echo $i++.": ". $sql ."</br>";
-		//echo "	";
-		//echo $sql;
-		//echo "<br>";
-		mysqli_query($con,$sql) or die('error in query:'. mysqli_error($con));
+	foreach ($sql_query as $key=>$sql) {
+		if (mysqli_query($con,$sql) ) {
+			echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
+			echo 'SQL: ' . $sql . '</br>';
+		} else {
+			echo '<span style="color:darkgreen;">Query ' . $key . '/'. count($sql_query) .' succeeded</span></br>';
+		};
 	}
-
+	mysqli_close($con);
 	echo "Success!<br>";
 	flush();
 
 	//-----------------Add the admin user to the Users DB----------
-	echo "Adding new admin user...";
+	echo "Adding new admin user ".$adminuser."...";
 	flush();
 	$con = mysqli_connect($servername,"root",$rootpass,"raspberrypints");
 	// Check connection
@@ -236,17 +235,17 @@ if ($action == 'install') {
 		$sql_query = remove_comments($sql_query);
 		$sql_query = split_sql_file($sql_query, ';');
 
-
 		mysqli_connect($servername,'root',$rootpass) or die('error connection');
-
-		$i=1;
-		foreach ($sql_query as $sql) {
-			//echo $i++;
-			//echo "	";
-			mysqli_query($sql) or die('error in query');
+		$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
+		foreach ($sql_query as $key=>$sql) {
+			if (mysqli_query($con,$sql) ) {
+				echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
+				echo 'SQL: ' . $sql . '</br>';
+			} else {
+				echo '<span style="color:darkgreen;">Query ' . $key . '/'. count($sql_query) .' succeeded</span></br>';
+			};
 		}
-
-		
+		mysqli_close($con);	
 		echo "Success!<br>";
 		flush();
 	}
