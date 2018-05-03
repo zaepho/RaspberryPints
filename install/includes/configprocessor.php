@@ -186,7 +186,7 @@ if ($action == 'install') {
 	$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
 
 	$i=1;
-	foreach($sql_query as $sql){
+	foreach ($sql_query as $sql) {
 		echo $i++.": ". $sql ."</br>";
 		//echo "	";
 		//echo $sql;
@@ -203,9 +203,8 @@ if ($action == 'install') {
 	$con = mysqli_connect($servername,"root",$rootpass,"raspberrypints");
 	// Check connection
 
-	if (mysqli_connect_errno())
-	{
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	if (mysqli_connect_errno()) {
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 	$currentdate = Date('Y-m-d H:i:s');
 	$sql = "INSERT INTO users (username, password, name, email, createdDate, modifiedDate) VALUES ('" . $adminuser . "','" . $adminhash . "','" . $adminname . "','" . $adminemail . "','" . $currentdate . "','" . $currentdate . "');";
@@ -217,14 +216,11 @@ if ($action == 'install') {
 	//-----------------Delete the index.html page-----------------
 	echo "Deleting default index.html page...";
 	flush();
-	if (!unlink(__DIR__."/../../index.html"))
-		{
+	if (!unlink(__DIR__."/../../index.html")) {
 		echo ("File already deleted");
-		}
-	else
-		{
+	} else {
 		echo ("Success!");
-		}
+	}
 	flush();
 		
 	//-----------------Load the sample data if requested-----------
@@ -244,7 +240,7 @@ if ($action == 'install') {
 		mysqli_connect($servername,'root',$rootpass) or die('error connection');
 
 		$i=1;
-		foreach($sql_query as $sql){
+		foreach ($sql_query as $sql) {
 			//echo $i++;
 			//echo "	";
 			mysqli_query($sql) or die('error in query');
