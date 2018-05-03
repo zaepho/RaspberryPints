@@ -171,7 +171,7 @@ if ($action == 'install') {
 	flush();
 
 	//-----------------Run The Schema File-------------------------
-	echo "Running Database Script...";
+	echo "Running Database Script...</br>";
 	flush();
 	$dbms_schema = __DIR__."/../../sql/schema.sql";
 
@@ -183,15 +183,15 @@ if ($action == 'install') {
 	$sql_query = split_sql_file($sql_query, ';');
 
 
-	mysqli_connect($servername,'root',$rootpass) or die('error connection');
+	$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
 
 	$i=1;
 	foreach($sql_query as $sql){
-		//echo $i++;
+		echo $i++.": ". $sql ."</br>";
 		//echo "	";
 		//echo $sql;
 		//echo "<br>";
-		mysqli_query($sql) or die('error in query');
+		mysqli_query($con,$sql) or die('error in query:'. mysqli_error($con));
 	}
 
 	echo "Success!<br>";
@@ -200,7 +200,7 @@ if ($action == 'install') {
 	//-----------------Add the admin user to the Users DB----------
 	echo "Adding new admin user...";
 	flush();
-	$con=mysqli_connect($servername,"root",$rootpass,"raspberrypints");
+	$con = mysqli_connect($servername,"root",$rootpass,"raspberrypints");
 	// Check connection
 
 	if (mysqli_connect_errno())
