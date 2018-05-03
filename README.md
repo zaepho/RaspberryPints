@@ -39,9 +39,9 @@ All versions:
 
 * Firefox has difficulty rendering our SRM image masks correctly. Due to a deficiency in the way Firefox handles z-values with images and is a known issue within the MDN.
 
-v2.0.2:
+v2.0.3:
 
-* Web Based installed is not fully tested. 
+* Web Based installed is not fully tested.
   * Workaround: Create SQL Database, Import SQL Schema, Create Configuration File
 
 v2.0.2:
@@ -50,20 +50,35 @@ v2.0.2:
 
 ## Version History
 
+v2.0.3:
+
+* Moving front end to Smarty to support Skins/Themes
+* First pass at Migrating Installer to be functional
+* Major documentation overhaul
+
 v2.0.2:
-	- Migrate to PDO from PHP mysql functions
-	- Change pour tracking to leverage a web call instead of CLI
-	- Started work on potential SQL injection vectors
+
+* Migrate to PDO from PHP mysql functions
+* Change pour tracking to leverage a web call instead of CLI
+* Started work on potential SQL injection vectors
+
 v1.0.3 (hotfix):
-	- Fixed broken links to (external) official website.
+
+* Fixed broken links to (external) official website.
+
 v1.0.2 (hotfix):
-	- Addresses excess vertical spacing introduced in v1.0.1 CSS cleanup.
-	- Fixed redirect to the install directory that prevented use on virtual hosts.
+
+* Addresses excess vertical spacing introduced in v1.0.1 CSS cleanup.
+* Fixed redirect to the install directory that prevented use on virtual hosts.
+
 v1.0.1 (hotfix):
-	- Removed leading underscores ( _ ) for non-beer styles on taplist front-end.
-	- Removed leading underscores ( _ ) for non-beer styles on admin page "My Beers".
-	- Clarified presentation of beer styles/categories on admin page "My Beers".
-	- Prevented browser from caching old brewery logos, even after a new one was uploaded.
-	- Cleaned up styles.css.
+
+* Removed leading underscores ( _ ) for non-beer styles on taplist front-end.
+* Removed leading underscores ( _ ) for non-beer styles on admin page "My Beers".
+* Clarified presentation of beer styles/categories on admin page "My Beers".
+* Prevented browser from caching old brewery logos, even after a new one was uploaded.
+* Cleaned up styles.css.
+
 v1.0.0 (major release):
-	- First major release.
+
+* First major release.
