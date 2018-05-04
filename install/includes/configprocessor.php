@@ -186,7 +186,7 @@ if ($action == 'install') {
 	$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
 	$itBroke = false;
 	foreach ($sql_query as $key=>$sql) {
-		if (mysqli_query($con,$sql) ) {
+		if (!mysqli_query($con,$sql)) {
 			echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
 			echo 'SQL: ' . $sql . '</br>';
 			$itBroke = true;
@@ -246,7 +246,7 @@ if ($action == 'install') {
 		mysqli_connect($servername,'root',$rootpass) or die('error connection');
 		$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
 		foreach ($sql_query as $key=>$sql) {
-			if (mysqli_query($con,$sql) ) {
+			if (!mysqli_query($con,$sql) ) {
 				echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
 				echo 'SQL: ' . $sql . '</br>';
 			} else {
