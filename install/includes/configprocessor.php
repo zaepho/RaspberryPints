@@ -247,7 +247,7 @@ if ($action == 'install') {
 		$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
 		foreach ($sql_query as $key=>$sql) {
 			if (!mysqli_query($con,$sql) ) {
-				echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
+				echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': ['.mysqli_errno($con) .'] '. mysqli_error($con) . '</span></br>';
 				echo 'SQL: ' . $sql . '</br>';
 			} else {
 				echo '<span style="color:darkgreen;">Query ' . $key . '/'. count($sql_query) .' succeeded</span></br>';
