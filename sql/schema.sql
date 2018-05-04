@@ -1,18 +1,5 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
---
--- Database: `raspberrypints`
---
 CREATE DATABASE IF NOT EXISTS `raspberrypints` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `raspberrypints`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `beerStyles`
---
-
 CREATE TABLE IF NOT EXISTS `beerStyles` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` tinytext NOT NULL,
@@ -33,11 +20,6 @@ CREATE TABLE IF NOT EXISTS `beerStyles` (
 	
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `beerStyles`
---
-
 INSERT INTO `beerStyles`( name, catNum, category, ogMin, ogMax, fgMin, fgMax, abvMin, abvMax, ibuMin, ibuMax, srmMin, srmMax) VALUES
 ( 'Lite American Lager', '1A', 'Light Lager', '1.028', '1.04', '0.998', '1.008', '2.8', '4.2', '8', '12', '2', '3'),
 ( 'Standard American Lager', '1B', 'Light Lager', '1.04', '1.05', '1.004', '1.01', '4.2', '5.1', '8', '15', '2', '4'),
@@ -145,13 +127,6 @@ INSERT INTO `beerStyles`( name, catNum, category, ogMin, ogMax, fgMin, fgMax, ab
 ( '_Non-beer: Fruit Juice', 'N/A', 'Fruit Juice', '1', '1', '1', '1', '0', '0', '0', '0', '0', '40'),
 ( '_Non-beer: Fruit Drink', 'N/A', 'Fruit Drink', '1', '1', '1', '1', '0', '0', '0', '0', '0', '40'),
 ( '_Non-beer: Seltzer Water', 'N/A', 'Seltzer Water', '1', '1', '1', '1', '0', '0', '0', '0', '0', '40');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `beers`
---
-
 CREATE TABLE IF NOT EXISTS `beers` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` text NOT NULL,
@@ -168,13 +143,6 @@ CREATE TABLE IF NOT EXISTS `beers` (
 PRIMARY KEY (`id`),
 FOREIGN KEY (`beerStyleId`) REFERENCES beerStyles(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `config`
---
-
 CREATE TABLE `config` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`configName` varchar(50) NOT NULL,
@@ -187,11 +155,6 @@ CREATE TABLE `config` (
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `configName_UNIQUE` (`configName`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `config`
---
-
 INSERT INTO `config` ( configName, configValue, displayName, showOnPanel) VALUES
 	( 'showTapNumCol', '1', 'Tap Column', '1'),
 	( 'showSrmCol', '1', 'SRM Column', '1'),
@@ -209,14 +172,6 @@ INSERT INTO `config` ( configName, configValue, displayName, showOnPanel) VALUES
 	( 'useFlowMeter','0','Use Flow Monitoring', '1'),
 	( 'backgroundImgUrl', 'img/background.jpg', 'Background Image', '0'),
 	( 'skin-FrontEnd', 'RPints-Veritcal', 'Tap Listing Skin', '0');
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kegTypes`
---
-
 CREATE TABLE IF NOT EXISTS `kegTypes` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`displayName` text NOT NULL,
@@ -226,11 +181,6 @@ CREATE TABLE IF NOT EXISTS `kegTypes` (
 	
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kegTypes`
---
-
 INSERT INTO `kegTypes` ( displayName, maxAmount) VALUES
 	( 'Ball Lock (5 gal)', '5'),
 	( 'Ball Lock (2.5 gal)', '2.5'),
@@ -247,13 +197,6 @@ INSERT INTO `kegTypes` ( displayName, maxAmount) VALUES
 	( 'Cask (kilderkin)', '21.62'),
 	( 'Cask (barrel)', '43.23'),
 	( 'Cask (hogshead)', '64.85');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kegStatuses`
---
-
 CREATE TABLE IF NOT EXISTS `kegStatuses` (
 	`code` varchar(20) NOT NULL,
 	`name` text NOT NULL,
@@ -262,11 +205,6 @@ CREATE TABLE IF NOT EXISTS `kegStatuses` (
 	
 	PRIMARY KEY (`code`)
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kegStatuses`
---
-
 INSERT INTO `kegStatuses` ( code, name) VALUES
 	( 'SERVING', 'Serving'),
 	( 'PRIMARY', 'Primary'),
@@ -277,13 +215,6 @@ INSERT INTO `kegStatuses` ( code, name) VALUES
 	( 'NEEDS_CLEANING', 'Needs Cleaning'),
 	( 'NEEDS_PARTS', 'Needs Parts'),
 	( 'NEEDS_REPAIRS', 'Needs Repairs');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kegs`
---
-
 CREATE TABLE IF NOT EXISTS `kegs` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`label` int(11) NOT NULL,
@@ -298,20 +229,11 @@ CREATE TABLE IF NOT EXISTS `kegs` (
 	`weight` decimal(11,4) NOT NULL,
 	`active` tinyint(1) NOT NULL DEFAULT 1,
 	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
-	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
-	
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),	
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`kegStatusCode`) REFERENCES kegStatuses(`Code`) ON DELETE CASCADE,
 	FOREIGN KEY (`kegTypeId`) REFERENCES kegTypes(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `taps`
---
-
 CREATE TABLE IF NOT EXISTS `taps` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`beerId` int(11) NOT NULL,
@@ -326,19 +248,11 @@ CREATE TABLE IF NOT EXISTS `taps` (
 	`startAmount` decimal(6,1) NOT NULL,
 	`currentAmount` decimal(6,1) NOT NULL,
 	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
-	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
-	
+	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),	
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`beerId`) REFERENCES beers(`id`) ON DELETE CASCADE,
 	FOREIGN KEY (`kegId`) REFERENCES kegs(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pours`
---
-
 CREATE TABLE IF NOT EXISTS `pours` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`tapId` int(11) NOT NULL,
@@ -347,17 +261,9 @@ CREATE TABLE IF NOT EXISTS `pours` (
   	`pulses` int(6) NOT NULL,
 	`createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
 	`modifiedDate` timestamp NOT NULL DEFAULT current_timestamp(),
-	
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (tapId) REFERENCES taps(id) ON DELETE CASCADE
 ) ENGINE=InnoDB	DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Users`
---
-
 CREATE TABLE `users` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`username` varchar(65) CHARACTER SET utf8 NOT NULL,
@@ -370,9 +276,6 @@ CREATE TABLE `users` (
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-
 CREATE TABLE IF NOT EXISTS `srmRgb` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`srm` decimal(3,1) NOT NULL,
@@ -383,8 +286,6 @@ CREATE TABLE IF NOT EXISTS `srmRgb` (
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `srm_UNIQUE` (`srm`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Data for table `srmRgb`
 INSERT INTO srmRgb ( srm, rgb) VALUES
 ( '0.0','252,252,243'),
 ( '0.1','248,248,230'),
@@ -787,26 +688,11 @@ INSERT INTO srmRgb ( srm, rgb) VALUES
 ( '39.8','3,4,3'),
 ( '39.9','3,4,3'),
 ( '40.0','3,4,3');
-
--- --------------------------------------------------------
-
---
--- Create View `vwGetTapsAmountPoured`
---
-
 CREATE VIEW vwGetTapsAmountPoured
 AS
 SELECT tapId, SUM(amountPoured) as amountPoured FROM pours GROUP BY tapId;
-
--- --------------------------------------------------------
-
---
--- Create View `vwGetActiveTaps`
---
-
 CREATE VIEW vwGetActiveTaps
 AS
-
 SELECT
 	t.id,
 	b.name,
@@ -828,7 +714,3 @@ FROM taps t
 	LEFT JOIN vwGetTapsAmountPoured as p ON p.tapId = t.Id
 WHERE t.active = true
 ORDER BY t.tapNumber;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
