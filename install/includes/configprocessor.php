@@ -50,10 +50,19 @@ flush();
 
 $con=mysqli_connect($servername,"root",$rootpass);
 
-if (mysqli_connect_errno()) {
-	$validerror .= "<br><strong>Cannot connect the the database using the supplied information.</strong>";
+if (!$con) {
+	$mySQLErrorNo = mysqli_connect_errno();
+	$validerror .= "<br><strong>Cannot connect the the database using the supplied information. MySQL Error Number: ". $mySQLErrorNo ."</strong>";
+	echo "FAILED!</br>";
+	echo "User: root</br>";
+	echo "Server: ".$servername."</br>";
+	echo "Pass: ".$rootpass."</br>";
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
+} else {
+	echo "DB Connect Success!<br>";
 }
-echo "Success!<br>";
 flush();
 
 //Validate that the config directories are writable
@@ -162,7 +171,7 @@ if ($action == 'install') {
 	flush();
 
 	//-----------------Run The Schema File-------------------------
-	echo "Running Database Script...";
+	echo "Running Database Script...</br>";
 	flush();
 	$dbms_schema = __DIR__."/../../sql/schema.sql";
 
@@ -174,29 +183,35 @@ if ($action == 'install') {
 	$sql_query = split_sql_file($sql_query, ';');
 
 
-	mysql_connect($servername,'root',$rootpass) or die('error connection');
-
-	$i=1;
-	foreach($sql_query as $sql){
-		//echo $i++;
-		//echo "	";
-		//echo $sql;
-		//echo "<br>";
-		mysql_query($sql) or die('error in query');
+	$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
+	$itBroke = false;
+	foreach ($sql_query as $key=>$sql) {
+		if (!mysqli_query($con,$sql)) {
+			echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': '. mysqli_error($con) . '</span></br>';
+			echo 'SQL: ' . $sql . '</br>';
+			$itBroke = true;
+		} else {
+			echo '<span style="color:darkgreen;">Query ' . $key . '/'. count($sql_query) .' succeeded</span></br>';
+		};
 	}
-
-	echo "Success!<br>";
+	mysqli_close($con);
+	if ($itBroke) {
+		echo "DB Creation Failed!";
+		die("DB Creation Failed!");
+	} else {
+		echo "Success!<br>";
+	}
+	
 	flush();
 
 	//-----------------Add the admin user to the Users DB----------
-	echo "Adding new admin user...";
+	echo "Adding new admin user ".$adminuser."...";
 	flush();
-	$con=mysqli_connect($servername,"root",$rootpass,"raspberrypints");
+	$con = mysqli_connect($servername,"root",$rootpass,"raspberrypints");
 	// Check connection
 
-	if (mysqli_connect_errno())
-	{
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	if (mysqli_connect_errno()) {
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 	$currentdate = Date('Y-m-d H:i:s');
 	$sql = "INSERT INTO users (username, password, name, email, createdDate, modifiedDate) VALUES ('" . $adminuser . "','" . $adminhash . "','" . $adminname . "','" . $adminemail . "','" . $currentdate . "','" . $currentdate . "');";
@@ -208,14 +223,11 @@ if ($action == 'install') {
 	//-----------------Delete the index.html page-----------------
 	echo "Deleting default index.html page...";
 	flush();
-	if (!unlink(__DIR__."/../../index.html"))
-		{
+	if (!unlink(__DIR__."/../../index.html")) {
 		echo ("File already deleted");
-		}
-	else
-		{
+	} else {
 		echo ("Success!");
-		}
+	}
 	flush();
 		
 	//-----------------Load the sample data if requested-----------
@@ -231,17 +243,17 @@ if ($action == 'install') {
 		$sql_query = remove_comments($sql_query);
 		$sql_query = split_sql_file($sql_query, ';');
 
-
-		mysql_connect($servername,'root',$rootpass) or die('error connection');
-
-		$i=1;
-		foreach($sql_query as $sql){
-			//echo $i++;
-			//echo "	";
-			mysql_query($sql) or die('error in query');
+		mysqli_connect($servername,'root',$rootpass) or die('error connection');
+		$con = mysqli_connect($servername,'root',$rootpass) or die('error connection');
+		foreach ($sql_query as $key=>$sql) {
+			if (!mysqli_query($con,$sql) ) {
+				echo '<span style="color:red;">Error in query'. $key . '/'. count($sql_query) .': ['.mysqli_errno($con) .'] '. mysqli_error($con) . '</span></br>';
+				echo 'SQL: ' . $sql . '</br>';
+			} else {
+				echo '<span style="color:darkgreen;">Query ' . $key . '/'. count($sql_query) .' succeeded</span></br>';
+			};
 		}
-
-		
+		mysqli_close($con);	
 		echo "Success!<br>";
 		flush();
 	}
