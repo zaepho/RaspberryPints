@@ -1,6 +1,6 @@
 <?php
 $RPintsVersion = '2.0.3dev';
-require __DIR__ . '/../vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 # require_once __DIR__ . '/../vendor/apache/log4php/src/main/php/Logger.php';
 
 $logConfig = array(
@@ -32,7 +32,7 @@ $logConfig = array(
             ),
             'params' => array(
                 'datePattern' => 'Ymd',
-                'file' => __DIR__ . '/../logs/RPints-%s.log',
+                'file' => dirname(__DIR__) . '/logs/RPints-%s.log',
             ),
         )
     ),
