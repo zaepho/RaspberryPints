@@ -19,9 +19,9 @@
 	<li>
 		<a class="expanded heading">Basic Setup</a>
 		<ul class="navigation">
-			<li><a href="beer_list.php">My Beers</a></li>
-			<li><a href="keg_list.php">My Kegs</a></li>
-			<li><a href="tap_list.php">My Taps</a></li>
+			<li><a href="admin/beer_list.php">My Beers</a></li>
+			<li><a href="admin/keg_list.php">My Kegs</a></li>
+			<li><a href="admin/tap_list.php">My Taps</a></li>
 		</ul>
 	</li>
 		<li>
